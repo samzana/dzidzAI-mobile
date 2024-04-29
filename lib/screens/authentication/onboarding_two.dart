@@ -1,14 +1,12 @@
 import 'package:dzidzai_mobile/components/authentication%20/logo.dart';
 import 'package:dzidzai_mobile/components/button.dart';
-import 'package:dzidzai_mobile/screens/authentication/onboarding_two.dart';
 import 'package:dzidzai_mobile/screens/background_scaffold.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:gif/gif.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnboardingOne extends StatelessWidget {
-  const OnboardingOne({super.key});
+class OnboardingTwo extends StatelessWidget {
+  const OnboardingTwo({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +17,11 @@ class OnboardingOne extends StatelessWidget {
           SizedBox(
             height: 200.h,
           ),
-          Gif(
-            autostart: Autostart.loop,
-            height: 258.h,
-            width: 258.w,
-            image: const AssetImage("assets/images/books.gif"),
+          const Image(
+            image: AssetImage('assets/images/zimsec-logo.png'),
           ),
           SizedBox(
-            height: 0.h,
+            height: 21.h,
           ),
           const Logo(),
           SizedBox(
@@ -35,7 +30,7 @@ class OnboardingOne extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 62.w),
             child: Text(
-              'An AI powered app for your final exam preparation.',
+              'Our app uses AI augmented by ZIMSEC recommended study materials.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: black,
@@ -47,33 +42,12 @@ class OnboardingOne extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: EdgeInsets.only(
-              left: 24.w,
-              right: 24.w,
-              bottom: 64.h,
-            ),
+            padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 64.h,),
             child: Row(
               children: [
-                AppButton(
-                  text: 'Skip',
-                  color: black,
-                  width: 147.w,
-                  onPressed: () {},
-                ),
+                AppButton(text: 'Skip', color: black, width: 147.w, onPressed: () {},),
                 const Spacer(),
-                AppButton(
-                  text: 'Proceed',
-                  color: blue,
-                  width: 191.w,
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OnboardingTwo(),
-                      ),
-                    );
-                  },
-                ),
+                AppButton(text: 'Proceed', color: blue, width: 191.w, onPressed: () {},),
               ],
             ),
           )

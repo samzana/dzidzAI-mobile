@@ -7,3 +7,4 @@ const Color grey = Color.fromRGBO(238, 238, 238, 1);
 const Color orange = Color.fromRGBO(251, 168, 52, 1);
 const Color green = Color.fromRGBO(108, 174, 0, 1);
 const Color red = Color.fromRGBO(220, 68, 55, 1);
+const Color navy = Color.fromRGBO(51, 58, 115, 1);

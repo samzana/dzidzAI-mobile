@@ -20,25 +20,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(414, 896),
       child: BlocProvider(
-          create: (context) => AuthCubit(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home:
-                BlocBuilder<AuthCubit, AuthState>(buildWhen: (previous, current) {
+        create: (context) => AuthCubit(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: BlocBuilder<AuthCubit, AuthState>(
+            buildWhen: (previous, current) {
               return previous is AuthInitialState;
-            }, builder: (context, state) {
+            },
+            builder: (context, state) {
               if (state is AuthLoggedInState) {
                 return const OnboardingOne();
               } else {
                 return const OnboardingOne();
               }
-            }),
-          )
+            },
+          ),
         ),
+      ),
     );
   }
 }

@@ -12,8 +12,9 @@ class AuthCubit extends Cubit<AuthState> {
   void sendOTP(String phoneNumber) async {
     emit(AuthLoadingState());
 
-    _firebaseAuth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
+    await _firebaseAuth
+        .verifyPhoneNumber(
+      phoneNumber: '+263$phoneNumber',
       codeSent: (verificationId, forceResendingToken) {
         verificationID = verificationId;
         emit(AuthCodeSentState());
@@ -27,15 +28,28 @@ class AuthCubit extends Cubit<AuthState> {
       codeAutoRetrievalTimeout: (verificationId) {
         verificationID = verificationId;
       },
-    );
+    )
+        .catchError((error) {
+      emit(AuthErrorState(error.toString()));
+    });
   }
 
-  void verifyOTP(String otp) async {
+  void verifyOTP(
+      String otp, String name, String phoneNumber, String password) async {
     emit(AuthLoadingState());
 
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID!, smsCode: otp);
-    signInWithPhone(credential);
+    try {
+      signInWithPhone(credential);
+      final user = await signUpUser('$phoneNumber@dzidzai.edu', password);
+      if (user != null) {
+        await updateUserName(user, name);
+        await user.linkWithCredential(credential);
+      }
+    } catch (ex) {
+      emit(AuthErrorState(ex.toString()));
+    }
   }
 
   void signInWithPhone(AuthCredential credential) async {
@@ -54,5 +68,24 @@ class AuthCubit extends Cubit<AuthState> {
   void logOut() async {
     emit(AuthLoggedOutState());
     _firebaseAuth.signOut();
+  }
+
+  Future<User?> signUpUser(String email, String password) async {
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return userCredential.user;
+    } on FirebaseAuthException catch (ex) {
+      emit(AuthErrorState(ex.message.toString()));
+    }
+  }
+
+  Future<void> updateUserName(User user, String name) async {
+    try {
+      await user.updateDisplayName(name);
+      await user.reload();
+    } on FirebaseAuthException catch (ex) {
+      emit(AuthErrorState(ex.message.toString()));
+    }
   }
 }

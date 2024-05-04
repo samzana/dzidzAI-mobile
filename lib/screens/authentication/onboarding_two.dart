@@ -1,5 +1,7 @@
 import 'package:dzidzai_mobile/components/authentication%20/logo.dart';
 import 'package:dzidzai_mobile/components/button.dart';
+import 'package:dzidzai_mobile/screens/authentication/main_auth_screen.dart';
+import 'package:dzidzai_mobile/screens/authentication/onboarding_three.dart';
 import 'package:dzidzai_mobile/screens/background_scaffold.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +44,40 @@ class OnboardingTwo extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 64.h,),
+            padding: EdgeInsets.only(
+              left: 24.w,
+              right: 24.w,
+              bottom: 64.h,
+            ),
             child: Row(
               children: [
-                AppButton(text: 'Skip', color: black, width: 147.w, onPressed: () {},),
+                AppButton(
+                  text: 'Skip',
+                  color: black,
+                  width: 147.w,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainAuthScreen(),
+                      ),
+                    );
+                  },
+                ),
                 const Spacer(),
-                AppButton(text: 'Proceed', color: blue, width: 191.w, onPressed: () {},),
+                AppButton(
+                  text: 'Proceed',
+                  color: blue,
+                  width: 191.w,
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OnboardingThree(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           )

@@ -1,6 +1,9 @@
+import 'package:dzidzai_mobile/components/landing_page.dart';
 import 'package:dzidzai_mobile/screens/authentication/onboarding_one.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
+import 'package:dzidzai_mobile/services/tab_navigation/landing_page_bloc.dart';
+import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,17 +25,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(414, 896),
-      child: BlocProvider(
-        create: (context) => AuthCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LandingPageBloc(),
+          ),
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              backgroundColor: white,
+            ),
+          ),
           home: BlocBuilder<AuthCubit, AuthState>(
             buildWhen: (previous, current) {
               return previous is AuthInitialState;
             },
             builder: (context, state) {
               if (state is AuthLoggedInState) {
-                return const OnboardingOne();
+                return const LandingPage();
               } else {
                 return const OnboardingOne();
               }

@@ -1,5 +1,6 @@
 import 'package:dzidzai_mobile/components/authentication%20/auth_background_scaffold.dart';
 import 'package:dzidzai_mobile/components/button.dart';
+import 'package:dzidzai_mobile/components/landing_page.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
@@ -118,15 +119,11 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                   );
                 } else if (state is AuthLoggedInState) {
                   Navigator.popUntil(context, (route) => route.isFirst);
-
-                  /*
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const MainAuthScreen(),
+                      builder: (context) => const LandingPage(),
                     ),
                   );
-
-                  */
                 }
               },
             ),

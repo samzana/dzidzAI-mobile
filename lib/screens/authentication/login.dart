@@ -2,8 +2,11 @@ import 'package:dzidzai_mobile/components/authentication%20/auth_background_scaf
 import 'package:dzidzai_mobile/components/authentication%20/text_form_field.dart';
 import 'package:dzidzai_mobile/components/button.dart';
 import 'package:dzidzai_mobile/screens/authentication/signup.dart';
+import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
+import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return AuthBackgroundScaffold(
       child: Form(
+        key: _loginFormKey,
         child: Padding(
           padding: EdgeInsets.only(
             top: 200.h,
@@ -57,7 +61,22 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 2.h,
               ),
-              AuthTextFormField(controller: _phoneController, keyboardType: TextInputType.phone),
+              AuthTextFormField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Phone number cannot be empty';
+                  } else if (value.length < 9) {
+                    return 'Phone number must be at least 9 digits';
+                  } else if (value.length > 10) {
+                    return 'Phone number must be at most 10 digits';
+                  } else if (!RegExp(r'^\+?\d+$').hasMatch(value.trim())) {
+                    return 'Please enter a valid phone number';
+                  }
+                  return null;
+                },
+              ),
               SizedBox(
                 height: 21.h,
               ),
@@ -73,7 +92,18 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 2.h,
               ),
-              AuthTextFormField(controller: _passwordController, keyboardType: TextInputType.visiblePassword),
+              AuthTextFormField(
+                controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Password cannot be empty';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
               SizedBox(
                 height: 0.h,
               ),
@@ -81,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Spacer(),
                   TextButton(
-                    onPressed: () {  },
+                    onPressed: () {},
                     child: Text(
                       'Forgot password?',
                       style: TextStyle(
@@ -98,13 +128,48 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 40.h,
               ),
-              Center(
-                child: AppButton(
-                  text: 'Login',
-                  color: blue,
-                  width: 380.w,
-                  onPressed: () {},
-                ),
+              BlocConsumer<AuthCubit, AuthState>(
+                builder: (context, state) {
+                  if (state is AuthLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: blue,
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: AppButton(
+                      text: 'Login',
+                      color: blue,
+                      width: 380.w,
+                      onPressed: () {
+                        if (_loginFormKey.currentState!.validate()) {
+                          BlocProvider.of<AuthCubit>(context).signInUser(
+                            _phoneController.text.trim(),
+                            _passwordController.text.trim(),
+                          );
+                        }
+                      },
+                    ),
+                  );
+                },
+                listener: (context, state) {
+                  if (state is AuthLoggedInState) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
+                    );
+                  } 
+                  else if (state is AuthErrorState) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please enter a valid phone number and/or password"),
+                        duration: Duration(seconds: 20),
+                      ),
+                    );
+                  }
+                },
               ),
               SizedBox(
                 height: 16.h,

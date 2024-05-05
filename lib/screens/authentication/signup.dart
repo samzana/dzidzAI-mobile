@@ -28,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return AuthBackgroundScaffold(
       child: Form(
+        key: _signupFormKey,
         child: Padding(
           padding: EdgeInsets.only(
             top: 150.h,
@@ -64,8 +65,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 2.h,
               ),
               AuthTextFormField(
-                  controller: _nameController,
-                  keyboardType: TextInputType.name),
+                controller: _nameController,
+                keyboardType: TextInputType.name,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Name cannot be empty';
+                  }
+                  return null;
+                },
+              ),
               SizedBox(
                 height: 21.h,
               ),
@@ -83,8 +91,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 2.h,
               ),
               AuthTextFormField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone),
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Phone number cannot be empty';
+                  } else if (value.length < 9) {
+                    return 'Phone number must be at least 9 digits';
+                  } else if (value.length > 10) {
+                    return 'Phone number must be at most 10 digits';
+                  } else if (!RegExp(r'^\+?\d+$').hasMatch(value.trim())) {
+                    return 'Please enter a valid phone number';
+                  }
+                  return null;
+                },
+              ),
               SizedBox(
                 height: 21.h,
               ),
@@ -101,8 +122,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 2.h,
               ),
               AuthTextFormField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword),
+                controller: _passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Password cannot be empty';
+                  } else if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
+              ),
               SizedBox(
                 height: 12.h,
               ),
@@ -116,15 +146,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PhoneVerification(
-                          phoneNumber: cleanPhoneNumber(_phoneController.text.trim()),
+                          phoneNumber:
+                              cleanPhoneNumber(_phoneController.text.trim()),
                           name: _nameController.text.trim(),
                           password: _passwordController.text.trim(),
                         ),
                       ),
                     );
                   } else if (state is AuthErrorState) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.error)));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.error),
+                        duration: const Duration(seconds: 20),
+                      ),
+                    );
                   }
                 },
                 builder: (context, state) {
@@ -141,9 +176,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: blue,
                       width: 380.w,
                       onPressed: () {
-                        BlocProvider.of<AuthCubit>(context).sendOTP(
-                          _phoneController.text,
-                        );
+                        if (_signupFormKey.currentState!.validate()) {
+                          BlocProvider.of<AuthCubit>(context).sendOTP(
+                            _phoneController.text,
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please fill in all fields'),
+                              duration: Duration(seconds: 20),
+                            ),
+                          );
+                        }
                       },
                     ),
                   );

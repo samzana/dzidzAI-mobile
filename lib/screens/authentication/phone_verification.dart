@@ -73,20 +73,49 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                     ),
                   );
                 }
-                return AppButton(
-                  text: 'Confirm',
-                  color: blue,
-                  width: 380.w,
-                  onPressed: () {
-                    BlocProvider.of<AuthCubit>(context)
-                        .verifyOTP(_codeController.text, widget.phoneNumber, widget.name, widget.password,);
-                  },
+                return Column(
+                  children: [
+                    AppButton(
+                      text: 'Confirm',
+                      color: blue,
+                      width: 380.w,
+                      onPressed: () {
+                        BlocProvider.of<AuthCubit>(context).verifyOTP(
+                          _codeController.text,
+                          widget.name,
+                          widget.phoneNumber,
+                          widget.password,
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 36.h,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Enter new phone number',
+                        style: TextStyle(
+                          color: orange,
+                          fontFamily: 'Baloo 2',
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
               listener: (context, state) {
                 if (state is AuthErrorState) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(state.error)));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.error),
+                      duration: const Duration(seconds: 20),
+                    ),
+                  );
                 } else if (state is AuthLoggedInState) {
                   Navigator.popUntil(context, (route) => route.isFirst);
 

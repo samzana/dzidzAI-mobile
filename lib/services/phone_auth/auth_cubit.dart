@@ -41,11 +41,12 @@ class AuthCubit extends Cubit<AuthState> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID!, smsCode: otp);
     try {
-      signInWithPhone(credential);
+      //signInWithPhone(credential);
       final user = await signUpUser('$phoneNumber@dzidzai.edu', password);
       if (user != null) {
         await updateUserName(user, name);
         await user.linkWithCredential(credential);
+        emit(AuthLoggedInState(user));
       }
     } catch (ex) {
       emit(AuthErrorState(ex.toString()));
@@ -65,6 +66,17 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  void signInUser(String phoneNumber, String password) async {
+    emit(AuthLoadingState());
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: '$phoneNumber@dzidzai.edu', password: password);
+      emit(AuthLoggedInState(userCredential.user!));
+    } on FirebaseAuthException catch (ex) {
+      emit(AuthErrorState(ex.message.toString()));
+    }
+  }
+
   void logOut() async {
     emit(AuthLoggedOutState());
     _firebaseAuth.signOut();
@@ -78,6 +90,7 @@ class AuthCubit extends Cubit<AuthState> {
     } on FirebaseAuthException catch (ex) {
       emit(AuthErrorState(ex.message.toString()));
     }
+    return null;
   }
 
   Future<void> updateUserName(User user, String name) async {

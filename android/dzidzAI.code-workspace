@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../../../dagusta"
+		},
+		{
+			"path": "../../../nest-projects/talent-portal-nest"
+		},
+		{
+			"path": "../../../boost_projects/uncommon_lt"
+		},
+		{
+			"path": "../../../nest-projects/talent-portal-frontend"
+		},
+		{
+			"path": "../../../tutorials/docker-tutorial"
+		},
+		{
+			"path": "../../../../Downloads/SupA.GUI.E3D"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "dagusta",
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

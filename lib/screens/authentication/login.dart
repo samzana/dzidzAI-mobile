@@ -1,6 +1,7 @@
 import 'package:dzidzai_mobile/components/authentication%20/auth_background_scaffold.dart';
 import 'package:dzidzai_mobile/components/authentication%20/text_form_field.dart';
 import 'package:dzidzai_mobile/components/button.dart';
+import 'package:dzidzai_mobile/components/landing_page.dart';
 import 'package:dzidzai_mobile/screens/authentication/signup.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
@@ -155,9 +156,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 listener: (context, state) {
                   if (state is AuthLoggedInState) {
+                    Navigator.popUntil(context, (route) => route.isFirst);
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const SignUpScreen(),
+                        builder: (context) => const LandingPage(),
                       ),
                     );
                   } 

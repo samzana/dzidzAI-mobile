@@ -12,7 +12,7 @@ class AuthBackgroundScaffold extends StatelessWidget {
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
+            image: AssetImage('assets/images/background1.png'),
             fit: BoxFit.cover,
           ),
         ),

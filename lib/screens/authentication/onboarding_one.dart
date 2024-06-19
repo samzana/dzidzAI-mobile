@@ -26,7 +26,7 @@ class OnboardingOne extends StatelessWidget {
             width: 258.w,
             image: const AssetImage("assets/images/books.gif"),
           ),
-          const Logo(),
+          Logo(fontSize: 62.sp,),
           SizedBox(
             height: 15.h,
           ),

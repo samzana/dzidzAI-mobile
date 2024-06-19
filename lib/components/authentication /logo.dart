@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({super.key});
+  const Logo({super.key, required this.fontSize});
+
+  final double fontSize;
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class Logo extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontFamily: 'Baloo 2',
                   color: black,
-                  fontSize: 62.sp,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -24,7 +27,7 @@ class Logo extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontFamily: 'Baloo 2',
                   color: blue,
-                  fontSize: 62.sp,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.w800,
                 ),
           ),

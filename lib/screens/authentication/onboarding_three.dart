@@ -28,7 +28,7 @@ class OnboardingThree extends StatelessWidget {
           SizedBox(
             height: 0.h,
           ),
-          const Logo(),
+          Logo(fontSize: 62.sp,),
           SizedBox(
             height: 15.h,
           ),

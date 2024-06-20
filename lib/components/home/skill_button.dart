@@ -1,4 +1,5 @@
 import 'package:dzidzai_mobile/components/home/progress_bar.dart';
+import 'package:dzidzai_mobile/components/icon_wrapper.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,13 +14,14 @@ class SkillButton extends StatelessWidget {
   });
 
   final String skill;
-  final VoidCallback onPressed;
+  final Function onPressed;
   final String icon;
   final double progress;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onPressed(),
       child: Container(
         width: 390.w,
         height: 85.h,
@@ -32,17 +34,7 @@ class SkillButton extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 60.w, 
-                height: 60
-                    .w, 
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle, 
-                  image: DecorationImage(
-                    image: AssetImage(icon), 
-                  ),
-                ),
-              ),
+              IconWrapper(icon: icon, radius: 60.w, color: white),
               SizedBox(width: 10.w), 
               Expanded(
                 child: Column(
@@ -77,8 +69,8 @@ class SkillButton extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                            width:
-                                20.w),
+                          width: 20.w,
+                        ),
                       ],
                     ),
                     SizedBox(height: 5.h),

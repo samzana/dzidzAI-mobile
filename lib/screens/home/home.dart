@@ -3,6 +3,7 @@ import 'package:dzidzai_mobile/components/home/current_standing.dart';
 import 'package:dzidzai_mobile/components/home/full_exam.dart';
 import 'package:dzidzai_mobile/components/home/profile_avatar.dart';
 import 'package:dzidzai_mobile/components/home/skill_button.dart';
+import 'package:dzidzai_mobile/screens/lessons/grammar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,9 @@ class Home extends StatelessWidget {
         children: [
           Row(
             children: [
-              Logo(fontSize: 40.sp,),
+              Logo(
+                fontSize: 40.sp,
+              ),
               const Spacer(),
               const ProfileAvatar(),
             ],
@@ -27,7 +30,9 @@ class Home extends StatelessWidget {
           SizedBox(height: 5.h),
           const Row(
             children: [
-              CurrentStanding(currentStanding: "A",),
+              CurrentStanding(
+                currentStanding: "A",
+              ),
               Spacer(),
               FullExam()
             ],
@@ -42,11 +47,31 @@ class Home extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.h),
-          SkillButton(skill: "Grammar", onPressed: (){}, icon: 'assets/images/grammar.png', progress: 20),
+          SkillButton(
+            skill: "Grammar",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Grammar(),
+                ),
+              );
+            },
+            icon: 'assets/images/grammar.png',
+            progress: 20,
+          ),
           SizedBox(height: 30.h),
-          SkillButton(skill: "Reading and Comprehension", onPressed: (){}, icon: 'assets/images/reading.png', progress: 40),
+          SkillButton(
+              skill: "Reading and Comprehension",
+              onPressed: () {},
+              icon: 'assets/images/reading.png',
+              progress: 40),
           SizedBox(height: 30.h),
-          SkillButton(skill: "Writing and Compositions", onPressed: (){}, icon: 'assets/images/writing.png', progress: 60),
+          SkillButton(
+              skill: "Writing and Compositions",
+              onPressed: () {},
+              icon: 'assets/images/writing.png',
+              progress: 60),
         ],
       ),
     );

@@ -14,14 +14,14 @@ class SkillButton extends StatelessWidget {
   });
 
   final String skill;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final String icon;
   final double progress;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed(),
+      onTap: onPressed,
       child: Container(
         width: 390.w,
         height: 85.h,
@@ -74,7 +74,7 @@ class SkillButton extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 5.h),
-                    ProgressBar(progress: progress / 100),
+                    ProgressBar(progress: progress / 100, height: 20.h, width: 285.w),
                   ],
                 ),
               ),

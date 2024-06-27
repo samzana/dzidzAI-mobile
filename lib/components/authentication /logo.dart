@@ -1,6 +1,5 @@
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key, required this.fontSize});

@@ -4,8 +4,9 @@ import 'package:dzidzai_mobile/components/home/full_exam.dart';
 import 'package:dzidzai_mobile/components/home/profile_avatar.dart';
 import 'package:dzidzai_mobile/components/home/skill_button.dart';
 import 'package:dzidzai_mobile/screens/lessons/grammar.dart';
+import 'package:dzidzai_mobile/screens/lessons/reading.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Home extends StatelessWidget {
@@ -53,7 +54,7 @@ class Home extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Grammar(),
+                  builder: (context) => Grammar(),
                 ),
               );
             },
@@ -62,16 +63,32 @@ class Home extends StatelessWidget {
           ),
           SizedBox(height: 30.h),
           SkillButton(
-              skill: "Reading and Comprehension",
-              onPressed: () {},
-              icon: 'assets/images/reading.png',
-              progress: 40),
+            skill: "Reading and Comprehension",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Reading(),
+                ),
+              );
+            },
+            icon: 'assets/images/reading.png',
+            progress: 40,
+          ),
           SizedBox(height: 30.h),
           SkillButton(
-              skill: "Writing and Compositions",
-              onPressed: () {},
-              icon: 'assets/images/writing.png',
-              progress: 60),
+            skill: "Writing and Compositions",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Writing(),
+                ),
+              );
+            },
+            icon: 'assets/images/writing.png',
+            progress: 60,
+          ),
         ],
       ),
     );

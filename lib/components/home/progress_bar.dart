@@ -6,9 +6,14 @@ class ProgressBar extends StatefulWidget {
   const ProgressBar({
     super.key,
     required this.progress,
+    required this.height,
+    required this.width,
+
   });
 
   final double progress;
+  final double height;
+  final double width;
 
   @override
   _ProgressBarState createState() => _ProgressBarState();
@@ -41,8 +46,8 @@ class _ProgressBarState extends State<ProgressBar> {
           AnimatedContainer(
             duration: const Duration(seconds: 1), 
             curve: Curves.easeInOut, 
-            width: 285.w * _currentProgress, 
-            height: 20.h,
+            width: widget.width * _currentProgress, 
+            height: widget.height,
             decoration: BoxDecoration(
               color: blue,
               borderRadius: BorderRadius.circular(30.r),

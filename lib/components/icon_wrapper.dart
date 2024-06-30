@@ -6,11 +6,13 @@ class IconWrapper extends StatelessWidget {
     required this.icon,
     required this.radius,
     required this.color,
+    required this.fillColor,
   });
 
   final String icon;
   final double radius;
   final Color color;
+  final Color fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +22,17 @@ class IconWrapper extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: color,
-        image: DecorationImage(
-          image: AssetImage(icon),
+      ),
+      child: ColorFiltered(
+        colorFilter: ColorFilter.mode(
+          fillColor, 
+          BlendMode.srcIn, 
+        ),
+        child: Image.asset(
+          icon,
         ),
       ),
     );
   }
 }
+

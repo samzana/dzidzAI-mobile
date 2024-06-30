@@ -34,7 +34,7 @@ class SkillButton extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconWrapper(icon: icon, radius: 60.w, color: white),
+              IconWrapper(icon: icon, radius: 60.w, color: white, fillColor: black,),
               SizedBox(width: 10.w), 
               Expanded(
                 child: Column(

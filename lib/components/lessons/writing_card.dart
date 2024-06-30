@@ -34,7 +34,7 @@ class WritingCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconWrapper(icon: icon, radius: 50.r, color: white),
+                IconWrapper(icon: icon, radius: 50.r, color: white, fillColor: black,),
                 const Spacer(),
                 Text(
                   text,

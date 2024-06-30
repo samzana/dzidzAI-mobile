@@ -3,9 +3,9 @@ import 'package:dzidzai_mobile/components/home/current_standing.dart';
 import 'package:dzidzai_mobile/components/home/full_exam.dart';
 import 'package:dzidzai_mobile/components/home/profile_avatar.dart';
 import 'package:dzidzai_mobile/components/home/skill_button.dart';
-import 'package:dzidzai_mobile/screens/lessons/grammar.dart';
-import 'package:dzidzai_mobile/screens/lessons/reading.dart';
-import 'package:dzidzai_mobile/screens/lessons/writing.dart';
+import 'package:dzidzai_mobile/screens/lessons/grammar/grammar.dart';
+import 'package:dzidzai_mobile/screens/lessons/grammar/reading.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing/writing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -35,7 +35,7 @@ class ReadingCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconWrapper(icon: icon, radius: 50.r, color: wrapperColor),
+              IconWrapper(icon: icon, radius: 50.r, color: wrapperColor, fillColor: white,),
               const Spacer(),
               Text(
                 text,

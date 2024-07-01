@@ -1,6 +1,9 @@
 import 'package:dzidzai_mobile/components/lessons/reading_card.dart';
 import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
+import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/screens/lessons/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,7 +121,16 @@ class Reading extends StatelessWidget {
                         wrapperColor: wrapperOrange,
                         text: "Vocabulary Practice",
                         icon: "assets/images/reading.png",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ComprehensionPractice(
+                                comprehensionPractice:
+                                    vocabularyQuestions[0],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -150,7 +162,16 @@ class Reading extends StatelessWidget {
                         wrapperColor: wrapperOrange,
                         text: "Summary Practice",
                         icon: "assets/images/reading.png",
-                        onPressed: () {},
+                        onPressed: () {
+                           Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => SummaryPractice(
+                                summaryPractice:
+                                    summaryQuestions[0],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

@@ -21,10 +21,19 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
   late ScrollController _scrollController;
   String? answer;
   int questionNumber = 0;
+  bool _isAnswered = false;
+
+  void checkAnswer(){
+    setState(() {
+      _isAnswered = true;
+      // check answer using llm. 
+    });
+  }
 
   void nextQuestion() {
     if (questionNumber < widget.comprehensionPractice.questions.length - 1) {
       setState(() {
+        _isAnswered = false;
         questionNumber++;
         answer = null;
       });
@@ -85,7 +94,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Baloo 2'),
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20.h),
                     PassageWidget(
                       passage: widget.comprehensionPractice.passage,
                       scrollController: _scrollController,
@@ -139,14 +148,24 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    AppButton(
-                      text: 'Next Question',
-                      color: black,
-                      width: 400.w,
-                      onPressed: () {
+                    if (!_isAnswered)
+                      AppButton(
+                        text: 'Submit Answer',
+                        color: black,
+                        width: 400.w,
+                        onPressed: () {
+                          checkAnswer();
+                        },
+                      ),
+                    if (_isAnswered)
+                      AppButton(
+                        text: 'Next Question',
+                        color: black,
+                        width: 400.w,
+                        onPressed: () {
                           nextQuestion();
-                      },
-                    )
+                        },
+                      )
                   ],
                 ),
               ),

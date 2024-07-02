@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
               if (state is AuthLoggedInState) {
                 return const LandingPage();
               } else {
-                return const OnboardingOne();
+                //return const OnboardingOne();
+                return const LandingPage();
               }
             },
           ),

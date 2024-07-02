@@ -1,4 +1,6 @@
 import 'package:dzidzai_mobile/components/lessons/writing_card.dart';
+import 'package:dzidzai_mobile/data/writing/free_composition_practice.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing/free_compositions_practice.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +36,7 @@ class Writing extends StatelessWidget {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.all(16.w),
-            child: SingleChildScrollView( 
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -67,7 +69,17 @@ class Writing extends StatelessWidget {
                         text: "Narrative",
                         icon: "assets/images/reading.png",
                         progress: 10,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => FreeCompositionsPractice(
+                                freeCompositionsPractice:
+                                    freeCompositionQuestions[0],
+                                compositionType: 'Narrative',
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       WritingCard(
@@ -194,4 +206,3 @@ class Writing extends StatelessWidget {
     );
   }
 }
-

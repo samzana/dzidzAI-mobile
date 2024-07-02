@@ -1,5 +1,5 @@
 import 'package:dzidzai_mobile/components/button.dart';
-import 'package:dzidzai_mobile/models/grammar_exercise.dart';
+import 'package:dzidzai_mobile/models/grammar/grammar_exercise.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -74,9 +74,10 @@ class _SummaryPracticeState extends State<SummaryPractice> {
                   Text(
                     widget.summaryPractice.instructions[0],
                     style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Baloo 2'),
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Baloo 2',
+                    ),
                   ),
                   SizedBox(height: 20.h),
                   PassageWidget(
@@ -111,7 +112,7 @@ class _SummaryPracticeState extends State<SummaryPractice> {
                     ),
                   ),
                   SizedBox(height: 40.h),
-                  WordCountTextField(),
+                  const WordCountTextField(wordCount: 160),
                   SizedBox(height: 20.h),
                   AppButton(
                     text: "Check Summary",

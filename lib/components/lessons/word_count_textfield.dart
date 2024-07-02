@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WordCountTextField extends StatefulWidget {
+  const WordCountTextField({
+    super.key,
+    required this.wordCount,
+  });
+
+  final int wordCount;
+
   @override
   _WordCountTextFieldState createState() => _WordCountTextFieldState();
 }
@@ -62,7 +69,7 @@ class _WordCountTextFieldState extends State<WordCountTextField> {
         Align(
           alignment: AlignmentDirectional.bottomEnd,
           child: Text(
-            'Word Count: $_wordCount / 160',
+            'Word Count: $_wordCount / ${widget.wordCount}',
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,

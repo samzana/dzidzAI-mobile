@@ -1,4 +1,4 @@
-import 'package:dzidzai_mobile/models/grammar_exercise.dart';
+import 'package:dzidzai_mobile/models/grammar/grammar_exercise.dart';
 
 final List<GrammarExerciseModel> nounQuestions = [
     GrammarExerciseModel(

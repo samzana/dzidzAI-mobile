@@ -1,6 +1,8 @@
 import 'package:dzidzai_mobile/components/lessons/writing_card.dart';
 import 'package:dzidzai_mobile/data/writing/free_composition_practice.dart';
+import 'package:dzidzai_mobile/data/writing/guided_composition_practice.dart';
 import 'package:dzidzai_mobile/screens/lessons/writing/free_compositions_practice.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing/guided_compositions_practice.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -148,7 +150,9 @@ class Writing extends StatelessWidget {
                         text: "Memos",
                         icon: "assets/images/reading.png",
                         progress: 20,
-                        onPressed: () {},
+                        onPressed: () {
+
+                        },
                       ),
                       const Spacer(),
                       WritingCard(
@@ -186,7 +190,17 @@ class Writing extends StatelessWidget {
                         text: "Reports",
                         icon: "assets/images/reading.png",
                         progress: 30,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => GuidedCompositionsPractice(
+                                guidedCompositionsPractice:
+                                    guidedCompositionsQuestions[0],
+                                compositionType: 'Report',
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       WritingCard(

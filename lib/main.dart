@@ -1,5 +1,4 @@
 import 'package:dzidzai_mobile/components/landing_page.dart';
-import 'package:dzidzai_mobile/screens/authentication/onboarding_one.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
 import 'package:dzidzai_mobile/services/tab_navigation/landing_page_bloc.dart';

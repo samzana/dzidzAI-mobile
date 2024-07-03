@@ -21,11 +21,11 @@ class PassageWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: grey,
         borderRadius: BorderRadius.circular(10.r),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 2),
+            blurRadius: 10.r,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -50,23 +50,23 @@ class PassageWidget extends StatelessWidget {
                     children: [
                       Text(
                         '${index + 1}.',
-                        style: const TextStyle(fontSize: 16, color: black, fontWeight: FontWeight.w700, fontFamily: 'Baloo 2'),
+                        style: TextStyle(fontSize: 16.sp, color: black, fontWeight: FontWeight.w700, fontFamily: 'Baloo 2'),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       Container(
                         constraints: BoxConstraints(
                           maxWidth: MediaQuery.of(context).size.width * 0.8,
                         ),
                         child: Text(
                           passage[index],
-                          style: const TextStyle(fontSize: 16, color: black, fontFamily: 'Baloo 2',),
+                          style: TextStyle(fontSize: 16.sp, color: black, fontFamily: 'Baloo 2',),
                         ),
                       ),
                     ],
                   ),
                   // Add vertical spacing between paragraphs
                   if (index < passage.length - 1) // Avoid adding space after the last paragraph
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                 ],
               );
             },

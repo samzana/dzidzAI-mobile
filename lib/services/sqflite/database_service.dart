@@ -23,15 +23,34 @@ class DatabaseService {
 
   Future<void> trackGrammarAnswer(
       String subsection, int questionIndex, bool isCorrect) async {
-    await _database.insert(
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
       'GrammarProgress',
-      {
-        'subsection': subsection,
-        'questionIndex': questionIndex,
-        'isCorrect': isCorrect ? 1 : 0,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      where: 'subsection = ? AND questionIndex = ?',
+      whereArgs: [subsection, questionIndex],
     );
+
+    if (existingEntries.isNotEmpty) {
+      // Update existing entry
+      await _database.update(
+        'GrammarProgress',
+        {
+          'isCorrect': isCorrect ? 1 : 0,
+        },
+        where: 'subsection = ? AND questionIndex = ?',
+        whereArgs: [subsection, questionIndex],
+      );
+    } else {
+      // Insert new entry
+      await _database.insert(
+        'GrammarProgress',
+        {
+          'subsection': subsection,
+          'questionIndex': questionIndex,
+          'isCorrect': isCorrect ? 1 : 0,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
   }
 
   Future<List<int>> fetchUnansweredGrammarQuestions(String subsection) async {

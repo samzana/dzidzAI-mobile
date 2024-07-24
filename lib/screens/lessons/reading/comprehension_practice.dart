@@ -1,17 +1,22 @@
 import 'package:dzidzai_mobile/components/button.dart';
 import 'package:dzidzai_mobile/components/lessons/passage_widget.dart';
+import 'package:dzidzai_mobile/models/api/grade_reading_request.dart';
 import 'package:dzidzai_mobile/models/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/providers/grade_reading_provider.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class ComprehensionPractice extends StatefulWidget {
   const ComprehensionPractice({
     super.key,
     required this.comprehensionPractice,
+    required this.isVocabulary,
   });
 
   final ComprehensionPracticeModel comprehensionPractice;
+  final bool isVocabulary;
 
   @override
   _ComprehensionPracticeState createState() => _ComprehensionPracticeState();
@@ -19,14 +24,36 @@ class ComprehensionPractice extends StatefulWidget {
 
 class _ComprehensionPracticeState extends State<ComprehensionPractice> {
   late ScrollController _scrollController;
+  late TextEditingController _answerController;
   String? answer;
   int questionNumber = 0;
   bool _isAnswered = false;
 
-  void checkAnswer(){
+  void checkAnswer() {
     setState(() {
-      _isAnswered = true;
-      // check answer using llm. 
+      if (answer == null || answer!.isEmpty) {
+        //Handle empty answer case
+        return;
+      }
+      final gradeReadingProvider =
+          Provider.of<GradeReadingProvider>(context, listen: false);
+      final request = GradeReadingRequest(
+        passage: widget.comprehensionPractice.passage,
+        question:
+            !widget.isVocabulary 
+            ? widget.comprehensionPractice.questions[questionNumber].question 
+            : 'Give one word or a short phrase (of not more than seven words) which has the same meaning that the following word or phrase has in the passage: ${widget.comprehensionPractice.questions[questionNumber].question }',
+        response: answer!,
+      );
+
+      gradeReadingProvider.gradeReading(request).then((_) {
+        setState(() {
+          _isAnswered = true;
+        });
+      }).catchError((error) {
+        //Handle error case
+        print(error);
+      });
     });
   }
 
@@ -36,6 +63,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
         _isAnswered = false;
         questionNumber++;
         answer = null;
+        _answerController.clear();
       });
     } else {
       // You can show a message or handle the end of the question list here
@@ -46,16 +74,20 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _answerController = TextEditingController();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _answerController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final gradeReadingProvider = Provider.of<GradeReadingProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: white,
@@ -116,6 +148,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 0.w),
                       child: TextField(
+                        controller: _answerController,
                         onChanged: (value) {
                           setState(() {
                             answer = value;
@@ -134,7 +167,6 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                             color: darkGrey,
                             fontFamily: 'Baloo 2',
                             fontSize: 18.sp,
-                            //fontWeight: FontWeight.w800,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
@@ -149,15 +181,39 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     ),
                     SizedBox(height: 20.h),
                     if (!_isAnswered)
-                      AppButton(
-                        text: 'Submit Answer',
-                        color: black,
-                        width: 400.w,
-                        onPressed: () {
-                          checkAnswer();
-                        },
+                      !gradeReadingProvider.isLoading
+                          ? AppButton(
+                              text: 'Submit Answer',
+                              color: black,
+                              width: 400.w,
+                              onPressed: () {
+                                checkAnswer();
+                              },
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                                color: blue,
+                              ),
+                            ),
+                    if (_isAnswered) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Text(
+                          gradeReadingProvider.response?.grade ?? '',
+                          style: TextStyle(
+                            color: gradeReadingProvider.response!.grade
+                                    .startsWith("Correct")
+                                ? green
+                                : red,
+                            fontFamily: 'Baloo 2',
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
-                    if (_isAnswered)
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       AppButton(
                         text: 'Next Question',
                         color: black,
@@ -166,6 +222,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                           nextQuestion();
                         },
                       )
+                    ]
                   ],
                 ),
               ),

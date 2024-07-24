@@ -1,4 +1,5 @@
 import 'package:dzidzai_mobile/screens/home/home.dart';
+import 'package:dzidzai_mobile/screens/lessons/lessons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,7 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
 
 const List<Widget> bottomNavScreen = <Widget>[
   Home(),
-  Text('Index 1: Book'),
+  Lessons(),
   Text('Index 2: Performance'),
   Text('Index 3: Evaluation'),
   Text('Index 4: Settings'),

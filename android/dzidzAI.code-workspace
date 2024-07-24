@@ -7,9 +7,6 @@
 			"path": "../../../nest-projects/talent-portal-frontend"
 		},
 		{
-			"path": "../../../tutorials/docker-tutorial"
-		},
-		{
 			"path": ".."
 		},
 		{
@@ -17,6 +14,15 @@
 		},
 		{
 			"path": "../../../training/instructor_projects/next-projects"
+		},
+		{
+			"path": "../../dzidzai_api"
+		},
+		{
+			"path": "../../../playground_socrates"
+		},
+		{
+			"path": "../../playground-ai-service"
 		}
 	],
 	"settings": {

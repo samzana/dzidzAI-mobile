@@ -42,6 +42,7 @@ class _ProgressBarState extends State<ProgressBar> {
         borderRadius: BorderRadius.circular(30.r),
       ),
       child: Stack(
+        alignment: Alignment.centerLeft,
         children: [
           AnimatedContainer(
             duration: const Duration(seconds: 1), 

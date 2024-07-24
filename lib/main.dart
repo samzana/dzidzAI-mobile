@@ -1,4 +1,5 @@
 import 'package:dzidzai_mobile/components/landing_page.dart';
+import 'package:dzidzai_mobile/providers/grade_reading_provider.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
 import 'package:dzidzai_mobile/services/tab_navigation/landing_page_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,11 +23,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return ScreenUtilInit(
       designSize: const Size(414, 896),
       child: MultiBlocProvider(
         providers: [
+          ChangeNotifierProvider(
+            create: (_) => GradeReadingProvider()
+          ),
           BlocProvider(
             create: (context) => AuthCubit(),
           ),

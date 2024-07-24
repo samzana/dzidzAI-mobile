@@ -1,8 +1,11 @@
 import 'package:dzidzai_mobile/components/button.dart';
 import 'package:dzidzai_mobile/models/grammar/grammar_exercise.dart';
+import 'package:dzidzai_mobile/providers/sqflite/database_provider.dart';
+import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class GrammarExercise extends StatefulWidget {
   const GrammarExercise({
@@ -23,28 +26,69 @@ class _GrammarExerciseState extends State<GrammarExercise> {
   bool _isAnswered = false;
   bool _isCorrect = false;
   String? answer;
+  List<GrammarExerciseModel> _unansweredQuestions = [];
 
-  void checkAnswer() {
+  @override
+  void initState() {
+    super.initState();
+    _loadUnansweredQuestions();
+  }
+
+  Future<void> _loadUnansweredQuestions() async {
+    final databaseService = Provider.of<DatabaseService>(context, listen: false);
+    List<int> unansweredIndices =
+        await databaseService.fetchUnansweredGrammarQuestions(widget.title);
+
     setState(() {
-      _isAnswered = true;
-      _isCorrect = answer == widget.questions[_currentIndex].answer;
+      if (unansweredIndices.isEmpty) {
+        _unansweredQuestions = widget.questions;
+      } else {
+        // Convert the list of questions to a map of index and question pairs
+        final indexedQuestions = widget.questions.asMap();
+
+        // Filter questions based on unanswered indices
+        _unansweredQuestions = indexedQuestions.entries
+            .where((entry) => unansweredIndices.contains(entry.key))
+            .map((entry) => entry.value)
+            .toList();
+
+        // Set the initial index if there are unanswered questions
+        if (_unansweredQuestions.isNotEmpty) {
+          _currentIndex = 0;
+        }
+      }
     });
   }
 
+  void checkAnswer() async {
+    setState(() {
+      _isAnswered = true;
+      _isCorrect = answer == _unansweredQuestions[_currentIndex].answer;
+    });
+
+    final databaseService= Provider.of<DatabaseService>(context, listen: false);
+    await databaseService.trackGrammarAnswer(
+        widget.title,
+        widget.questions.indexOf(_unansweredQuestions[_currentIndex]),
+        _isCorrect);
+  
+  }
+
   void nextQuestion() {
-    if (_currentIndex < widget.questions.length - 1) {
+    if (_unansweredQuestions.isNotEmpty &&
+        _currentIndex < _unansweredQuestions.length - 1) {
       setState(() {
         _currentIndex++;
         _isAnswered = false;
         answer = null;
       });
     } else {
-      // You can show a message or handle the end of the question list here
+      // Handle the end of the question list or display a completion message
     }
   }
 
   Color _getButtonColor(int index) {
-    String option = widget.questions[_currentIndex].options![index];
+    String option = _unansweredQuestions[_currentIndex].options![index];
 
     if (_isAnswered) {
       if (answer == option) {
@@ -59,16 +103,25 @@ class _GrammarExerciseState extends State<GrammarExercise> {
 
   @override
   Widget build(BuildContext context) {
-    var currentQuestion = widget.questions[_currentIndex];
+    if (_unansweredQuestions.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('${widget.title} Practice'),
+        ),
+        body: const Center(child: Text('No unanswered questions available.')),
+      );
+    }
+
+    var currentQuestion = _unansweredQuestions[_currentIndex];
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
+        backgroundColor: Colors.white,
         title: Text(
           '${widget.title} Practice',
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Baloo 2',
-            fontSize: 25,
+            fontSize: 25.sp,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -82,14 +135,12 @@ class _GrammarExerciseState extends State<GrammarExercise> {
       body: Container(
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
-          color: white,
+          color: Colors.white,
         ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(
-                16.r,
-              ),
+              padding: EdgeInsets.all(16.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -98,7 +149,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                     child: Text(
                       currentQuestion.instructions,
                       style: TextStyle(
-                        color: black,
+                        color: Colors.black,
                         fontFamily: 'Baloo 2',
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w200,
@@ -109,7 +160,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                   Container(
                     padding: EdgeInsets.all(24.r),
                     decoration: BoxDecoration(
-                      color: grey,
+                      color: Colors.grey,
                       borderRadius: BorderRadius.circular(8.r),
                     ),
                     width: 370.w,
@@ -134,26 +185,27 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                             height: 68.h,
                             child: ElevatedButton(
                               onPressed: () {
-                                _isAnswered
-                                    ? () {}
-                                    : setState(() {
-                                        answer = currentQuestion.options![0];
-                                      });
+                                if (!_isAnswered) {
+                                  setState(() {
+                                    answer = currentQuestion.options![0];
+                                  });
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: _getButtonColor(0),
                                 elevation: 10.h,
-                                shadowColor: black,
+                                shadowColor: Colors.black,
                                 padding: EdgeInsets.symmetric(vertical: 14.h),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  side: BorderSide(color: darkGrey, width: 1.r),
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 1.r),
                                 ),
                               ),
                               child: Text(
                                 currentQuestion.options![0],
                                 style: TextStyle(
-                                  color: black,
+                                  color: Colors.black,
                                   fontFamily: 'Baloo 2',
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w800,
@@ -167,26 +219,27 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                             height: 70.h,
                             child: ElevatedButton(
                               onPressed: () {
-                                _isAnswered
-                                    ? () {}
-                                    : setState(() {
-                                        answer = currentQuestion.options![1];
-                                      });
+                                if (!_isAnswered) {
+                                  setState(() {
+                                    answer = currentQuestion.options![1];
+                                  });
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: _getButtonColor(1),
                                 elevation: 10.h,
-                                shadowColor: black,
+                                shadowColor: Colors.black,
                                 padding: EdgeInsets.symmetric(vertical: 14.h),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  side: BorderSide(color: darkGrey, width: 1.r),
+                                  side: BorderSide(
+                                      color: Colors.grey, width: 1.r),
                                 ),
                               ),
                               child: Text(
                                 currentQuestion.options![1],
                                 style: TextStyle(
-                                  color: black,
+                                  color: Colors.black,
                                   fontFamily: 'Baloo 2',
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w800,
@@ -203,14 +256,14 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                         ? Padding(
                             padding: EdgeInsets.only(top: 40.h),
                             child: AppButton(
-                              text: 'Check Answer',
-                              color: black,
-                              width: 370.w,
                               onPressed: () {
                                 setState(() {
                                   checkAnswer();
                                 });
                               },
+                              text: 'Check Answer',
+                              color: black,
+                              width: 370.w,
                             ),
                           )
                         : Padding(
@@ -226,16 +279,16 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w800,
                                     color: answer == currentQuestion.answer
-                                        ? green
-                                        : red,
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
                                 ),
                                 SizedBox(height: 60.h),
                                 AppButton(
+                                  onPressed: nextQuestion,
                                   text: 'Next Question',
                                   color: black,
-                                  width: 400.w,
-                                  onPressed: nextQuestion,
+                                  width: 370.w,
                                 ),
                               ],
                             ),
@@ -251,7 +304,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                         },
                         maxLines: 4,
                         style: TextStyle(
-                          color: black,
+                          color: Colors.black,
                           fontFamily: 'Baloo 2',
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w800,
@@ -259,18 +312,20 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                         decoration: InputDecoration(
                           hintText: 'Type your answer here',
                           hintStyle: TextStyle(
-                            color: darkGrey,
+                            color: Colors.grey,
                             fontFamily: 'Baloo 2',
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(color: darkGrey, width: 2.r),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 2.r),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.r),
-                            borderSide: BorderSide(color: black, width: 2.r),
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2.r),
                           ),
                         ),
                       ),
@@ -280,14 +335,14 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                         ? Padding(
                             padding: EdgeInsets.only(top: 40.h),
                             child: AppButton(
-                              text: 'Check Answer',
-                              color: black,
-                              width: 390.w,
                               onPressed: () {
                                 setState(() {
                                   checkAnswer();
                                 });
                               },
+                              color: black,
+                              text: "Check Answer",
+                              width: 370.w,
                             ),
                           )
                         : Padding(
@@ -314,8 +369,8 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                         style: TextStyle(
                                           color:
                                               answer == currentQuestion.answer
-                                                  ? orange
-                                                  : blue,
+                                                  ? Colors.orange
+                                                  : Colors.blue,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -329,9 +384,10 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                 AppButton(
                                   text: 'Next Question',
                                   color: black,
-                                  width: 370,
+                                  width: 370.w,
                                   onPressed: nextQuestion,
                                 ),
+
                                 SizedBox(height: 20.h),
                               ],
                             ),

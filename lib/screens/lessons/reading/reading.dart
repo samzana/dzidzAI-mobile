@@ -2,7 +2,7 @@ import 'package:dzidzai_mobile/components/lessons/reading_card.dart';
 import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
 import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
-import 'package:dzidzai_mobile/providers/grade_reading_provider.dart';
+import 'package:dzidzai_mobile/providers/ai_api/grade_reading_provider.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/comprehension_practice.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';

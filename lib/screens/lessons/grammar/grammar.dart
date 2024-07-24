@@ -1,9 +1,11 @@
 import 'package:dzidzai_mobile/components/lessons/writing_card.dart';
 import 'package:dzidzai_mobile/data/grammar/nouns.dart';
+import 'package:dzidzai_mobile/providers/sqflite/database_provider.dart';
 import 'package:dzidzai_mobile/screens/lessons/grammar/grammar_exercise.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class Grammar extends StatelessWidget {
   const Grammar({
@@ -12,6 +14,9 @@ class Grammar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final databaseProvider =
+        Provider.of<DatabaseProvider>(context, listen: false);
+        
     return Scaffold(
       appBar: AppBar(
         backgroundColor: white,

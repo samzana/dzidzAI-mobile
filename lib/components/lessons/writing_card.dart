@@ -24,7 +24,7 @@ class WritingCard extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           width: 176.w,
-          height: 170.h,
+          height: 200.h,
           decoration: BoxDecoration(
             color: grey,
             borderRadius: BorderRadius.circular(8.r),
@@ -44,7 +44,6 @@ class WritingCard extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: 10.h),
                 ProgressBar(progress: progress/100, height: 12.h, width: 152.w,),
               ],
             ),

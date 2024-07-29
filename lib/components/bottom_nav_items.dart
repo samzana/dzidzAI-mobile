@@ -1,3 +1,4 @@
+import 'package:dzidzai_mobile/screens/exams/practice_exams.dart';
 import 'package:dzidzai_mobile/screens/home/home.dart';
 import 'package:dzidzai_mobile/screens/lessons/lessons.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
     ),
     label: 'Lessons'
   ),
+  /*
   BottomNavigationBarItem(
     icon: SvgPicture.asset(
       'assets/images/performance.svg',
@@ -45,6 +47,7 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
     ),
     label: 'Metrics'
   ),
+  */
   BottomNavigationBarItem(
     icon: SvgPicture.asset(
       'assets/images/evaluation.svg',
@@ -56,8 +59,9 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
       height: 44.h,
       width: 44.w,
     ),
-    label: 'Practice'
+    label: 'Exams'
   ),
+  /*
   BottomNavigationBarItem(
     icon: SvgPicture.asset(
       'assets/images/settings.svg',
@@ -71,12 +75,11 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
     ),
     label: 'Settings'
   ),
+  */
 ];
 
 const List<Widget> bottomNavScreen = <Widget>[
   Home(),
   Lessons(),
-  Text('Index 2: Performance'),
-  Text('Index 3: Evaluation'),
-  Text('Index 4: Settings'),
+  PracticeExams(),
 ];

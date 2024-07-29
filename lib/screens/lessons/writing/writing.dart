@@ -1,8 +1,6 @@
 import 'package:dzidzai_mobile/components/lessons/writing_card.dart';
 import 'package:dzidzai_mobile/data/writing/free_composition_practice.dart';
-import 'package:dzidzai_mobile/data/writing/guided_composition_practice.dart';
-import 'package:dzidzai_mobile/screens/lessons/writing/free_compositions_practice.dart';
-import 'package:dzidzai_mobile/screens/lessons/writing/guided_compositions_practice.dart';
+import 'package:dzidzai_mobile/screens/lessons/reading/practice_tiles.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,10 +72,9 @@ class Writing extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => FreeCompositionsPractice(
-                                freeCompositionsPractice:
-                                    freeCompositionQuestions[0],
-                                compositionType: 'Narrative',
+                              builder: (context) => PracticeTiles(
+                                title: 'Narrative',
+                                exercises: narrativeCompositionQuestions,
                               ),
                             ),
                           );
@@ -88,7 +85,16 @@ class Writing extends StatelessWidget {
                         text: "Descriptive",
                         icon: "assets/images/reading.png",
                         progress: 40,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Descriptive',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -100,14 +106,32 @@ class Writing extends StatelessWidget {
                         text: "Informative",
                         icon: "assets/images/reading.png",
                         progress: 20,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Informative',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       WritingCard(
                         text: "Argumentative",
                         icon: "assets/images/reading.png",
                         progress: 30,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Argumentative',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -119,14 +143,32 @@ class Writing extends StatelessWidget {
                         text: "Discursive",
                         icon: "assets/images/reading.png",
                         progress: 10,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Discursive',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       WritingCard(
                         text: "Creative",
                         icon: "assets/images/reading.png",
                         progress: 100,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Creative',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -151,7 +193,14 @@ class Writing extends StatelessWidget {
                         icon: "assets/images/reading.png",
                         progress: 20,
                         onPressed: () {
-
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Memos',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
                         },
                       ),
                       const Spacer(),
@@ -159,7 +208,16 @@ class Writing extends StatelessWidget {
                         text: "Letters",
                         icon: "assets/images/reading.png",
                         progress: 10,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Letters',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -171,14 +229,32 @@ class Writing extends StatelessWidget {
                         text: "Articles",
                         icon: "assets/images/reading.png",
                         progress: 10,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Articles',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       WritingCard(
                         text: "CV",
                         icon: "assets/images/reading.png",
                         progress: 70,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'CV',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -193,10 +269,9 @@ class Writing extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => GuidedCompositionsPractice(
-                                guidedCompositionsPractice:
-                                    guidedCompositionsQuestions[0],
-                                compositionType: 'Report',
+                              builder: (context) => PracticeTiles(
+                                title: 'Reports',
+                                exercises: narrativeCompositionQuestions,
                               ),
                             ),
                           );
@@ -207,7 +282,16 @@ class Writing extends StatelessWidget {
                         text: "Speeches",
                         icon: "assets/images/reading.png",
                         progress: 50,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PracticeTiles(
+                                title: 'Speeches',
+                                exercises: narrativeCompositionQuestions,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

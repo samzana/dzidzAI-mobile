@@ -1,3 +1,4 @@
+import 'package:dzidzai_mobile/utils/get_total_questions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -53,11 +54,11 @@ class DatabaseService {
     }
   }
 
-  Future<List<int>> fetchUnansweredGrammarQuestions(String subsection) async {
+  Future<List<int>> fetchAnsweredGrammarQuestions(String subsection) async {
     final List<Map<String, dynamic>> maps = await _database.query(
         'GrammarProgress',
         where: 'subsection = ? AND (isCorrect IS NULL OR isCorrect = ?)',
-        whereArgs: [subsection, 0]);
+        whereArgs: [subsection, 1]);
 
     return List.generate(maps.length, (i) {
       return maps[i]['questionIndex'];
@@ -75,5 +76,56 @@ class DatabaseService {
     int correctCount = results.where((row) => row['isCorrect'] == 1).length;
 
     return totalQuestions > 0 ? (correctCount / totalQuestions) * 100 : 0.0;
+  }
+
+  Future<int> getTotalAnsweredQuestions() async {
+    final List<Map<String, dynamic>> results = await _database.query(
+      'GrammarProgress',
+      where: 'isCorrect = ?',
+      whereArgs: [1],
+    );
+
+    return results.length;
+  }
+
+  Future<double> calculateOverallGrammarProgress() async {
+    final int totalAnsweredQuestions = await getTotalAnsweredQuestions();
+    final int totalQuestions = getTotalGrammarQuestions();
+
+    if (totalQuestions == 0) return 0.0;
+
+    return (totalAnsweredQuestions / totalQuestions) * 100;
+  }
+
+  Future<double> calculateComprehensionProgress(index) async {
+    return 20.0;
+  }
+
+  Future<double> calculateVocabularyProgress(index) async {
+    return 50.0;
+  }
+
+  Future<double> calculateSummaryProgress(index) async {
+    return 30.0;
+  }
+
+  // Placeholder for reading progress calculation
+  Future<double> calculateOverallReadingProgress() async {
+    // Implement reading progress calculation here
+    return 0.0;
+  }
+
+  // Placeholder for writing progress calculation
+  Future<double> calculateOverallWritingProgress() async {
+    // Implement writing progress calculation here
+    return 0.0;
+  }
+
+  Future<double> calculateOverallExamPracticeProgress(index) async {
+    return 20.0;
+  }
+
+  Future<double> calculateExamPracticeProgress(paper, index) async {
+    return 20.0;
   }
 }

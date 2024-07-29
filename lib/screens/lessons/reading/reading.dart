@@ -2,13 +2,10 @@ import 'package:dzidzai_mobile/components/lessons/reading_card.dart';
 import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
 import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
-import 'package:dzidzai_mobile/providers/ai_api/grade_reading_provider.dart';
-import 'package:dzidzai_mobile/screens/lessons/reading/comprehension_practice.dart';
-import 'package:dzidzai_mobile/screens/lessons/reading/summary_practice.dart';
+import 'package:dzidzai_mobile/screens/lessons/reading/practice_tiles.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 class Reading extends StatelessWidget {
   const Reading({super.key});
@@ -85,14 +82,12 @@ class Reading extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ChangeNotifierProvider(
-                                create: (context) => GradeReadingProvider(),
-                                child: ComprehensionPractice(
-                                  comprehensionPractice: comprehensionQuestions[0],
-                                  isVocabulary: false,
+                              builder: (context) => PracticeTiles(
+                                title: 'Comprehension Practice',
+                                exercises: comprehensionQuestions,
                               ),
                             ),
-                          ));
+                          );
                         },
                       ),
                     ],
@@ -128,10 +123,9 @@ class Reading extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ComprehensionPractice(
-                                comprehensionPractice:
-                                    vocabularyQuestions[0],
-                                isVocabulary: true,
+                              builder: (context) => PracticeTiles(
+                                title: 'Vocabulary Practice',
+                                exercises: vocabularyQuestions,
                               ),
                             ),
                           );
@@ -157,7 +151,7 @@ class Reading extends StatelessWidget {
                       ReadingCard(
                         color: blue,
                         wrapperColor: lightBlue,
-                        text: "Summary      Tips",
+                        text: "Summary     Tips",
                         icon: "assets/images/wand.png",
                         onPressed: () {},
                       ),
@@ -168,11 +162,11 @@ class Reading extends StatelessWidget {
                         text: "Summary Practice",
                         icon: "assets/images/reading.png",
                         onPressed: () {
-                           Navigator.of(context).push(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => SummaryPractice(
-                                summaryPractice:
-                                    summaryQuestions[0],
+                              builder: (context) => PracticeTiles(
+                                title: 'Summary Practice',
+                                exercises: summaryQuestions,
                               ),
                             ),
                           );

@@ -91,9 +91,9 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: white,
-          title: const Text(
-            'Comprehension Practice',
-            style: TextStyle(
+          title: Text(
+            widget.isVocabulary? 'Vocabulary Practice' : 'Comprehension Practice',
+            style: const TextStyle(
               fontFamily: 'Baloo 2',
               fontSize: 25,
               fontWeight: FontWeight.w800,

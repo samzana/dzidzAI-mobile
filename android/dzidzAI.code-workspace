@@ -23,7 +23,7 @@
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "dagusta",
+		"liveServer.settings.multiRootWorkspaceName": null,
 		"java.configuration.updateBuildConfiguration": "automatic"
 	}
 }

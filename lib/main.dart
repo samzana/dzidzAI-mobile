@@ -1,6 +1,5 @@
 import 'package:dzidzai_mobile/components/landing_page.dart';
 import 'package:dzidzai_mobile/providers/ai_api/grade_reading_provider.dart';
-import 'package:dzidzai_mobile/providers/sqflite/database_provider.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_cubit.dart';
 import 'package:dzidzai_mobile/services/phone_auth/auth_states.dart';
 import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
       designSize: const Size(414, 896),
       child: MultiBlocProvider(
         providers: [
-          // Provide DatabaseService to the app
           Provider<DatabaseService>.value(
             value: databaseService,
           ),

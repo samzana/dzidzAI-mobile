@@ -14,7 +14,7 @@ class DatabaseProvider extends ChangeNotifier {
   }
 
   Future<List<int>> fetchUnansweredGrammarQuestions(String subsection) async {
-    return await _databaseService.fetchUnansweredGrammarQuestions(subsection);
+    return await _databaseService.fetchAnsweredGrammarQuestions(subsection);
   }
 
   Future<double> getProgress(String subsection, int totalQuestions) async {

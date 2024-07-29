@@ -1,6 +1,5 @@
 import 'package:dzidzai_mobile/components/button.dart';
 import 'package:dzidzai_mobile/models/grammar/grammar_exercise.dart';
-import 'package:dzidzai_mobile/providers/sqflite/database_provider.dart';
 import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,7 @@ class GrammarExercise extends StatefulWidget {
 }
 
 class _GrammarExerciseState extends State<GrammarExercise> {
+  late TextEditingController _answerController;
   int _currentIndex = 0;
   bool _isAnswered = false;
   bool _isCorrect = false;
@@ -32,15 +32,18 @@ class _GrammarExerciseState extends State<GrammarExercise> {
   void initState() {
     super.initState();
     _loadUnansweredQuestions();
+    _answerController = TextEditingController();
   }
 
   Future<void> _loadUnansweredQuestions() async {
-    final databaseService = Provider.of<DatabaseService>(context, listen: false);
-    List<int> unansweredIndices =
-        await databaseService.fetchUnansweredGrammarQuestions(widget.title);
+    final databaseService =
+        Provider.of<DatabaseService>(context, listen: false);
+    //await databaseService.printDatabaseContents();
+    List<int> answeredIndices =
+        await databaseService.fetchAnsweredGrammarQuestions(widget.title);
 
     setState(() {
-      if (unansweredIndices.isEmpty) {
+      if (answeredIndices.length == widget.questions.length) {
         _unansweredQuestions = widget.questions;
       } else {
         // Convert the list of questions to a map of index and question pairs
@@ -48,7 +51,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
 
         // Filter questions based on unanswered indices
         _unansweredQuestions = indexedQuestions.entries
-            .where((entry) => unansweredIndices.contains(entry.key))
+            .where((entry) => !answeredIndices.contains(entry.key))
             .map((entry) => entry.value)
             .toList();
 
@@ -66,12 +69,12 @@ class _GrammarExerciseState extends State<GrammarExercise> {
       _isCorrect = answer == _unansweredQuestions[_currentIndex].answer;
     });
 
-    final databaseService= Provider.of<DatabaseService>(context, listen: false);
+    final databaseService =
+        Provider.of<DatabaseService>(context, listen: false);
     await databaseService.trackGrammarAnswer(
         widget.title,
         widget.questions.indexOf(_unansweredQuestions[_currentIndex]),
         _isCorrect);
-  
   }
 
   void nextQuestion() {
@@ -81,6 +84,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
         _currentIndex++;
         _isAnswered = false;
         answer = null;
+        _answerController.clear();
       });
     } else {
       // Handle the end of the question list or display a completion message
@@ -99,6 +103,12 @@ class _GrammarExerciseState extends State<GrammarExercise> {
     } else {
       return answer == option ? Colors.blue : Colors.white;
     }
+  }
+
+  @override
+  void dispose() {
+    _answerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -297,6 +307,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: TextField(
+                        controller: _answerController,
                         onChanged: (value) {
                           setState(() {
                             answer = value;
@@ -347,7 +358,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                           )
                         : Padding(
                             padding: EdgeInsets.only(
-                                left: 15.w, right: 15.w, top: 20.w),
+                                left: 15.w, right: 15.w, top: 20.h),
                             child: Column(
                               children: [
                                 RichText(
@@ -387,7 +398,6 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                   width: 370.w,
                                   onPressed: nextQuestion,
                                 ),
-
                                 SizedBox(height: 20.h),
                               ],
                             ),

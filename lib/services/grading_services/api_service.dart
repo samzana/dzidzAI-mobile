@@ -25,7 +25,6 @@ class GradingApiService {
         throw Exception('Failed to grade reading');
       }
     } on DioException catch (e) {
-      print(e);
       throw Exception('Failed to grade reading: ${e.message}');
     }
   }

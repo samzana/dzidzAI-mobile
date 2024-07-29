@@ -6,8 +6,10 @@ import 'package:dzidzai_mobile/components/home/skill_button.dart';
 import 'package:dzidzai_mobile/screens/lessons/grammar/grammar.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/reading.dart';
 import 'package:dzidzai_mobile/screens/lessons/writing/writing.dart';
+import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -48,46 +50,75 @@ class Home extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.h),
-          SkillButton(
-            skill: "Grammar",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Grammar(),
-                ),
+          FutureBuilder<List<double>>(
+            future: Future.wait([
+              Provider.of<DatabaseService>(context, listen: false)
+                  .calculateOverallGrammarProgress(),
+              Provider.of<DatabaseService>(context, listen: false)
+                  .calculateOverallReadingProgress(),
+              Provider.of<DatabaseService>(context, listen: false)
+                  .calculateOverallWritingProgress(),
+            ]),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.hasError) {
+                return const Center(child: Text('Error calculating progress'));
+              }
+
+              final progressValues = snapshot.data ?? [0.0, 0.0, 0.0];
+              final grammarProgress = progressValues[0];
+              final readingProgress = progressValues[1];
+              final writingProgress = progressValues[2];
+
+              return Column(
+                children: [
+                  SkillButton(
+                    skill: "Grammar",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Grammar(),
+                        ),
+                      );
+                    },
+                    icon: 'assets/images/grammar.png',
+                    progress: grammarProgress,
+                  ),
+                  SizedBox(height: 30.h),
+                  SkillButton(
+                    skill: "Reading and Comprehension",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Reading(),
+                        ),
+                      );
+                    },
+                    icon: 'assets/images/reading.png',
+                    progress: readingProgress,
+                  ),
+                  SizedBox(height: 30.h),
+                  SkillButton(
+                    skill: "Writing and Compositions",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Writing(),
+                        ),
+                      );
+                    },
+                    icon: 'assets/images/writing.png',
+                    progress: writingProgress,
+                  ),
+                ],
               );
             },
-            icon: 'assets/images/grammar.png',
-            progress: 20,
-          ),
-          SizedBox(height: 30.h),
-          SkillButton(
-            skill: "Reading and Comprehension",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Reading(),
-                ),
-              );
-            },
-            icon: 'assets/images/reading.png',
-            progress: 40,
-          ),
-          SizedBox(height: 30.h),
-          SkillButton(
-            skill: "Writing and Compositions",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Writing(),
-                ),
-              );
-            },
-            icon: 'assets/images/writing.png',
-            progress: 60,
           ),
         ],
       ),

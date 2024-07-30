@@ -1,6 +1,8 @@
 import 'package:dzidzai_mobile/components/lessons/reading_practice_tile.dart';
 import 'package:dzidzai_mobile/components/lessons/writing_guidelines_tile.dart';
 import 'package:dzidzai_mobile/data/final_exams/paper_one_practice.dart';
+import 'package:dzidzai_mobile/data/final_exams/paper_two_practice.dart';
+import 'package:dzidzai_mobile/screens/exams/practice_exam.dart';
 import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,7 +49,7 @@ class PracticeExams extends StatelessWidget {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.h),
                   child: FutureBuilder(
-                      future: _calculateProgress(context, index-1),
+                      future: _calculateProgress(context, index - 1),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -63,8 +65,16 @@ class PracticeExams extends StatelessWidget {
                           title: 'Practice Exam $index',
                           progress: progress,
                           onPressed: () {
-                            
-                          }
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => PracticeExam(
+                                  index: index-1,
+                                  paperOne: paperOneQuestions[index-1],
+                                  paperTwo: paperTwoQuestions[index-1],
+                                ),
+                              ),
+                            );
+                          },
                         );
                       }),
                 );

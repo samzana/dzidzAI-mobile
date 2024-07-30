@@ -1,25 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "../../../nest-projects/talent-portal-nest"
-		},
-		{
-			"path": "../../../nest-projects/talent-portal-frontend"
-		},
-		{
 			"path": ".."
-		},
-		{
-			"path": "../../../dzidzAI_rag"
 		},
 		{
 			"path": "../../dzidzai_api"
 		},
 		{
-			"path": "../../../playground_socrates"
+			"path": "../../playground-ai-service"
 		},
 		{
-			"path": "../../playground-ai-service"
+			"path": "../../../bootcamp_projects"
 		}
 	],
 	"settings": {

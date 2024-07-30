@@ -1,54 +1,54 @@
 import 'package:dzidzai_mobile/components/button.dart';
-import 'package:dzidzai_mobile/components/lessons/passage_widget.dart';
+import 'package:dzidzai_mobile/components/lessons/guided_composition_widget.dart';
 import 'package:dzidzai_mobile/components/lessons/word_count_textfield.dart';
-import 'package:dzidzai_mobile/models/reading/summary_practice.dart';
+import 'package:dzidzai_mobile/models/exams/paper_one_practice.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SummaryPractice extends StatefulWidget {
-  const SummaryPractice({
+class PaperOne extends StatefulWidget {
+  const PaperOne({
     super.key,
-    required this.summaryPractice,
+    required this.paper,
   });
 
-  final SummaryPracticeModel summaryPractice;
+  final PaperOnePracticeModel paper;
 
   @override
-  _SummaryPracticeState createState() => _SummaryPracticeState();
+  _PaperOneState createState() => _PaperOneState();
 }
 
-class _SummaryPracticeState extends State<SummaryPractice> {
+class _PaperOneState extends State<PaperOne> {
   late ScrollController _scrollController;
-  final _controller = TextEditingController();
-  String? summary;
+  late ScrollController _guidedCompositionScrollController;
+  final _paperOneFormKey = GlobalKey<FormState>();
+  final _sectionAController = TextEditingController();
+  final _sectionBController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _guidedCompositionScrollController = ScrollController();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    _sectionAController.dispose();
+    _sectionBController.dispose();
     super.dispose();
-  }
-
-  void checkSummary() {
-    // check summary using llm.
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: white,
-        title: const Text(
-          'Comprehension Practice',
+        backgroundColor: Colors.white,
+        title: Text(
+          'Paper 1',
           style: TextStyle(
             fontFamily: 'Baloo 2',
-            fontSize: 25,
+            fontSize: 25.sp,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -65,67 +65,62 @@ class _SummaryPracticeState extends State<SummaryPractice> {
           color: white,
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            child: Padding(
-              padding: EdgeInsets.all(16.0.w),
+            child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Form(
+              key: _paperOneFormKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.summaryPractice.instructions[0],
+                    'Section A',
                     style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Baloo 2',
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  PassageWidget(
-                    passage: widget.summaryPractice.passage,
-                    scrollController: _scrollController,
-                  ),
-                  SizedBox(height: 40.h),
-                  Text(
-                    widget.summaryPractice.instructions[1],
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: 'Baloo 2',
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Text(
-                    widget.summaryPractice.instructions[2],
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                      fontSize: 23.sp,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Baloo 2',
                     ),
                   ),
                   SizedBox(height: 10.h),
                   Text(
-                    widget.summaryPractice.instructions[3],
+                    widget.paper.freeComposition.prompt,
                     style: TextStyle(
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w100,
+                      fontWeight: FontWeight.w400,
                       fontFamily: 'Baloo 2',
                     ),
                   ),
                   SizedBox(height: 40.h),
-                  WordCountTextField(wordCount: 160, controller: _controller),
-                  SizedBox(height: 20.h),
+                  WordCountTextField(wordCount: 450, controller: _sectionAController),
+                  SizedBox(height: 60.h),
+                  Text(
+                    'Section B',
+                    style: TextStyle(
+                      fontSize: 23.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Baloo 2',
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  GuidedCompositionWidget(
+                    composition: widget.paper.guidedComposition,
+                    scrollController: _guidedCompositionScrollController,
+                  ),
+                  SizedBox(height: 40.h),
+                  WordCountTextField(wordCount: 300, controller: _sectionBController),
+                  SizedBox(height: 40.h),
                   AppButton(
-                    text: "Check Summary",
+                    text: 'Submit',
                     color: black,
                     width: 390.w,
-                    onPressed: checkSummary,
+                    onPressed: () {},
                   ),
+                  SizedBox(height: 40.h),
                 ],
               ),
             ),
           ),
-        ),
+        )),
       ),
     );
   }

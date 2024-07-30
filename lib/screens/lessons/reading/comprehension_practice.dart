@@ -142,7 +142,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     Text(
                       widget.comprehensionPractice.questions[questionNumber]
                           .question,
-                      style: TextStyle(fontSize: 18.sp, fontFamily: 'Baloo 2'),
+                      style: TextStyle(fontSize: 18.sp, fontFamily: 'Baloo 2',),
                     ),
                     SizedBox(height: 20.h),
                     Padding(

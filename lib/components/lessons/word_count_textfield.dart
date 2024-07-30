@@ -6,36 +6,37 @@ class WordCountTextField extends StatefulWidget {
   const WordCountTextField({
     super.key,
     required this.wordCount,
+    required this.controller,
   });
 
   final int wordCount;
+  final TextEditingController controller;
 
   @override
   _WordCountTextFieldState createState() => _WordCountTextFieldState();
 }
 
 class _WordCountTextFieldState extends State<WordCountTextField> {
-  final TextEditingController _controller = TextEditingController();
   int _wordCount = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_updateWordCount);
+    widget.controller.addListener(_updateWordCount);
   }
 
   @override
   void dispose() {
-    _controller.removeListener(_updateWordCount);
-    _controller.dispose();
+    widget.controller.removeListener(_updateWordCount);
+    widget.controller.dispose();
     super.dispose();
   }
 
   void _updateWordCount() {
     setState(() {
-      _wordCount = _controller.text.trim().isEmpty
+      _wordCount = widget.controller.text.trim().isEmpty
           ? 0
-          : _controller.text.trim().split(RegExp(r'\s+')).length;
+          : widget.controller.text.trim().split(RegExp(r'\s+')).length;
     });
   }
 
@@ -45,7 +46,7 @@ class _WordCountTextFieldState extends State<WordCountTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextField(
-          controller: _controller,
+          controller: widget.controller,
           maxLines: null,
           decoration: InputDecoration(
             hintText: 'Type your answer here',

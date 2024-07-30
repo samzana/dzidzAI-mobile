@@ -52,7 +52,7 @@ class GuidedCompositionWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: black,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                       fontFamily: 'Baloo 2',
                     ),
                   ),
@@ -62,7 +62,7 @@ class GuidedCompositionWidget extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Baloo 2',
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -77,7 +77,7 @@ class GuidedCompositionWidget extends StatelessWidget {
                             fontSize: 16.sp,
                             color: black,
                             fontFamily: 'Baloo 2',
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       );

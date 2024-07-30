@@ -10,6 +10,5 @@ List<PaperOnePracticeModel> paperOneQuestions = [
   PaperOnePracticeModel(
     freeComposition: narrativeCompositionQuestions[0],
     guidedComposition: reportsCompositionQuestions[0],
-  ),
-   
+  ), 
 ];

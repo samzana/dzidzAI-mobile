@@ -22,6 +22,7 @@ class FreeCompositionsPractice extends StatefulWidget {
 
 class _FreeCompositionsPracticeState extends State<FreeCompositionsPractice> {
   late ScrollController _scrollController;
+  final _controller = TextEditingController();
   String? essay;
 
   @override
@@ -92,7 +93,7 @@ class _FreeCompositionsPracticeState extends State<FreeCompositionsPractice> {
                   SizedBox(
                     height: 40.h,
                   ),
-                  const WordCountTextField(wordCount: 450),
+                  WordCountTextField(wordCount: 450, controller: _controller),
                   SizedBox(
                     height: 20.h,
                   ),

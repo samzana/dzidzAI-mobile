@@ -1,4 +1,4 @@
-import 'package:dzidzai_mobile/screens/exams/practice_exams.dart';
+import 'package:dzidzai_mobile/screens/exams/practice_exams_list.dart';
 import 'package:dzidzai_mobile/screens/home/home.dart';
 import 'package:dzidzai_mobile/screens/lessons/lessons.dart';
 import 'package:flutter/material.dart';

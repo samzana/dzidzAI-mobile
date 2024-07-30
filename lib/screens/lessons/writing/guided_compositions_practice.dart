@@ -24,6 +24,7 @@ class GuidedCompositionsPractice extends StatefulWidget {
 class _GuidedCompositionsPracticeState extends State<GuidedCompositionsPractice> {
   late ScrollController _scrollController;
   late ScrollController _anotherScrollController;
+  final _controller = TextEditingController();
   String? essay;
 
   @override
@@ -83,7 +84,7 @@ class _GuidedCompositionsPracticeState extends State<GuidedCompositionsPractice>
                         scrollController: _anotherScrollController,
                       ),
                       SizedBox(height: 40.h),
-                      const WordCountTextField(wordCount: 300),
+                      WordCountTextField(wordCount: 300, controller: _controller),
                       SizedBox(height: 40.h),
                       AppButton(
                         text: 'Submit',

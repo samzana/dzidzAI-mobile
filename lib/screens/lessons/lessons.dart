@@ -33,6 +33,8 @@ class Lessons extends StatelessWidget {
               Provider.of<DatabaseService>(context, listen: false)
                   .calculateOverallReadingProgress(),
               Provider.of<DatabaseService>(context, listen: false)
+                  .calculateOverallSummaryProgress(),
+              Provider.of<DatabaseService>(context, listen: false)
                   .calculateOverallWritingProgress(),
             ]),
             builder: (context, snapshot) {
@@ -44,10 +46,11 @@ class Lessons extends StatelessWidget {
                 return const Center(child: Text('Error calculating progress'));
               }
 
-              final progressValues = snapshot.data ?? [0.0, 0.0, 0.0];
+              final progressValues = snapshot.data ?? [0.0, 0.0, 0.0, 0.0];
               final grammarProgress = progressValues[0];
               final readingProgress = progressValues[1];
-              final writingProgress = progressValues[2];
+              final summaryProgress = progressValues[2];
+              final writingProgress = progressValues[3];
 
               return Column(
                 children: [
@@ -104,7 +107,8 @@ class Lessons extends StatelessWidget {
                       WritingCard(
                         text: 'Summary',
                         icon: 'assets/images/reading.png',
-                        progress: readingProgress, // Assuming summary falls under reading progress
+                        progress:
+                            summaryProgress, 
                         onPressed: () {
                           Navigator.push(
                             context,

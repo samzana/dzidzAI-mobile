@@ -1,3 +1,6 @@
+import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
+import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
 import 'package:dzidzai_mobile/utils/get_total_questions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -6,20 +9,64 @@ class DatabaseService {
   late Database _database;
 
   Future<void> init() async {
-    var databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'dzidzai.db');
+    try {
+      var databasesPath = await getDatabasesPath();
+      String path = join(databasesPath, 'dzidzai.db');
+      _database =
+          await openDatabase(path, version: 1, onCreate: (db, version) async {
+        await db.execute('''
+          CREATE TABLE GrammarProgress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            subsection TEXT,
+            questionIndex INTEGER,
+            isCorrect INTEGER
+          )
+        ''');
 
-    _database =
-        await openDatabase(path, version: 1, onCreate: (db, version) async {
-      await db.execute('''
-        CREATE TABLE GrammarProgress (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          subsection TEXT,
-          questionIndex INTEGER,
-          isCorrect INTEGER
-        )
-          ''');
-    });
+        await db.execute('''
+          CREATE TABLE ReadingProgress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            subsection TEXT,
+            passage INTEGER,
+            questionIndex INTEGER,
+            isCorrect INTEGER
+          )
+        ''');
+
+        await db.execute('''
+          CREATE TABLE SummaryProgress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            summaryIndex INTEGER,
+            studentResponse TEXT,
+            grade INTEGER, 
+            feedback TEXT
+          )
+        ''');
+
+        await db.execute('''
+          CREATE TABLE WritingProgress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            freeOrGuided TEXT,
+            subsection TEXT,
+            compositionIndex INTEGER,
+            studentResponse TEXT,
+            grade INTEGER,
+            feedback TEXT
+          )
+        ''');
+
+        await db.execute('''
+          CREATE TABLE ExamProgress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            examType INTEGER,
+            examIndex INTEGER,
+            Score INTEGER
+          )
+        ''');
+      });
+    } catch (e) {
+      print('Error initializing database: $e');
+    }
   }
 
   Future<void> trackGrammarAnswer(
@@ -97,22 +144,178 @@ class DatabaseService {
     return (totalAnsweredQuestions / totalQuestions) * 100;
   }
 
-  Future<double> calculateComprehensionProgress(index) async {
-    return 20.0;
+  Future<double> calculateComprehensionProgress(
+      String subsection, int index) async {
+    final List<Map<String, dynamic>> results = await _database.query(
+      'ReadingProgress',
+      where: 'subsection = ? AND passage = ? AND isCorrect = ?',
+      whereArgs: [subsection, index, 1],
+    );
+
+    int correctAnswers = results.length;
+    int totalQuestions = comprehensionQuestions[index].questions.length;
+
+    if (totalQuestions == 0) {
+      return 0.0;
+    }
+
+    return (correctAnswers / totalQuestions) * 100;
   }
 
-  Future<double> calculateVocabularyProgress(index) async {
-    return 50.0;
+  Future<void> trackComprehensionAnswer(
+      String subsection, int passage, int questionIndex, bool isCorrect) async {
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
+      'ReadingProgress',
+      where: 'subsection = ? AND passage = ? AND questionIndex = ?',
+      whereArgs: [subsection, passage, questionIndex],
+    );
+
+    if (existingEntries.isNotEmpty) {
+      // Update existing entry
+      await _database.update(
+        'ReadingProgress',
+        {
+          'isCorrect': isCorrect ? 1 : 0,
+        },
+        where: 'subsection = ? AND passage = ? AND questionIndex = ?',
+        whereArgs: [subsection, passage, questionIndex],
+      );
+    } else {
+      // Insert new entry
+      await _database.insert(
+        'ReadingProgress',
+        {
+          'subsection': subsection,
+          'passage': passage,
+          'questionIndex': questionIndex,
+          'isCorrect': isCorrect ? 1 : 0,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
   }
 
-  Future<double> calculateSummaryProgress(index) async {
-    return 30.0;
+  Future<double> calculateSummaryProgress(int summaryIndex) async {
+    final List<Map<String, dynamic>> results = await _database.query(
+      'SummaryProgress',
+      columns: ['grade'],
+      where: 'summaryIndex = ?',
+      whereArgs: [summaryIndex],
+    );
+
+    if (results.isEmpty) {
+      return 0.0;
+    }
+
+    int grade = results.first['grade'];
+
+    return (grade / 20) * 100;
   }
 
-  // Placeholder for reading progress calculation
+  Future<void> trackSummaryAnswer(int summaryIndex, String studentResponse,
+      int grade, String feedback) async {
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
+      'SummaryProgress',
+      where: 'summaryIndex = ?',
+      whereArgs: [summaryIndex],
+    );
+
+    if (existingEntries.isNotEmpty) {
+      // Update existing entry
+      await _database.update(
+        'SummaryProgress',
+        {
+          'studentResponse': studentResponse,
+          'grade': grade,
+          'feedback': feedback,
+        },
+        where: 'summaryIndex = ?',
+        whereArgs: [summaryIndex],
+      );
+    } else {
+      // Insert new entry
+      await _database.insert(
+        'SummaryProgress',
+        {
+          'summaryIndex': summaryIndex,
+          'studentResponse': studentResponse,
+          'grade': grade,
+          'feedback': feedback,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>?> getSummaryProgress(int summaryIndex) async {
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
+      'SummaryProgress',
+      where: 'summaryIndex = ?',
+      whereArgs: [summaryIndex],
+    );
+
+    if (existingEntries.isNotEmpty) {
+      return existingEntries.first;
+    } else {
+      return null;
+    }
+  }
+
+  Future<double> calculateOverallSummaryProgress() async {
+    try {
+      // Get the total number of unique summaries (distinct summaryIndex)
+      final summaryCountResult = await _database.rawQuery(
+          'SELECT COUNT(DISTINCT summaryIndex) AS count FROM SummaryProgress');
+      final totalSummaries = Sqflite.firstIntValue(summaryCountResult) ?? 0;
+
+      if (totalSummaries == 0) {
+        return 0.0; // No summaries available
+      }
+
+      // Get the total sum of grades
+      final gradeSumResult = await _database
+          .rawQuery('SELECT SUM(grade) AS total FROM SummaryProgress');
+      final totalGrades = Sqflite.firstIntValue(gradeSumResult) ?? 0;
+
+      // Calculate overall progress
+      final overallProgress = totalGrades / (20 * summaryQuestions.length);
+      return overallProgress * 100.0;
+    } catch (e) {
+      return 0.0; // Return 0.0 in case of an error
+    }
+  }
+
+  
   Future<double> calculateOverallReadingProgress() async {
-    // Implement reading progress calculation here
-    return 0.0;
+    final List<Map<String, dynamic>> results = await _database.query(
+      'ReadingProgress',
+      columns: ['isCorrect'],
+      where: 'isCorrect = ?',
+      whereArgs: [1],
+    );
+
+    int correctCount = results.length;
+
+    int totalComprehensionQuestions = comprehensionQuestions.fold(
+        0,
+        (sum, comprehensionPractice) =>
+            sum + comprehensionPractice.questions.length);
+    
+    int totalVocabularyQuestions = vocabularyQuestions.fold(
+        0,
+        (sum, vocabularyPractice) =>
+            sum + vocabularyPractice.questions.length);
+    
+    int totalReadingQuestions = totalComprehensionQuestions + totalVocabularyQuestions;
+
+
+    double readingProgress = totalReadingQuestions > 0
+        ? (correctCount / totalReadingQuestions) * 100
+        : 0.0;
+    
+    double summaryProgress = await calculateOverallSummaryProgress();
+
+    return (readingProgress + summaryProgress) / 2;
   }
 
   // Placeholder for writing progress calculation

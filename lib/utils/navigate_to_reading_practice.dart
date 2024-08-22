@@ -38,6 +38,7 @@ void navigateToPractice(BuildContext context, String exercise, int index) {
         builder: (context) => ChangeNotifierProvider(
           create: (context) => GradeReadingProvider(),
           child: ComprehensionPractice(
+            passageIndex: index,
             comprehensionPractice: comprehensionQuestions[index],
             isVocabulary: false,
           ),
@@ -50,6 +51,7 @@ void navigateToPractice(BuildContext context, String exercise, int index) {
         builder: (context) => ChangeNotifierProvider(
           create: (context) => GradeReadingProvider(),
           child: ComprehensionPractice(
+            passageIndex: index,
             comprehensionPractice: vocabularyQuestions[index],
             isVocabulary: true,
           ),
@@ -60,7 +62,8 @@ void navigateToPractice(BuildContext context, String exercise, int index) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => SummaryPractice(
-          summaryPractice: summaryQuestions[0],
+          summaryIndex: index,
+          summaryPractice: summaryQuestions[index],
         ),
       ),
     );

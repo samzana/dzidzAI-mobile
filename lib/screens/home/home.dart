@@ -27,7 +27,6 @@ class Home extends StatelessWidget {
                 fontSize: 40.sp,
               ),
               const Spacer(),
-              const ProfileAvatar(),
             ],
           ),
           SizedBox(height: 5.h),
@@ -57,6 +56,8 @@ class Home extends StatelessWidget {
               Provider.of<DatabaseService>(context, listen: false)
                   .calculateOverallReadingProgress(),
               Provider.of<DatabaseService>(context, listen: false)
+                  .calculateOverallSummaryProgress(),
+              Provider.of<DatabaseService>(context, listen: false)
                   .calculateOverallWritingProgress(),
             ]),
             builder: (context, snapshot) {
@@ -65,13 +66,13 @@ class Home extends StatelessWidget {
               }
 
               if (snapshot.hasError) {
-                return const Center(child: Text('Error calculating progress'));
+                return Center(child: Text('Error: ${snapshot.error}'));
               }
 
               final progressValues = snapshot.data ?? [0.0, 0.0, 0.0];
               final grammarProgress = progressValues[0];
               final readingProgress = progressValues[1];
-              final writingProgress = progressValues[2];
+              final writingProgress = progressValues[3];
 
               return Column(
                 children: [

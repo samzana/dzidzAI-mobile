@@ -22,14 +22,14 @@ class PracticeTiles extends StatelessWidget {
     if (title == 'Comprehension Practice') {
       final progress =
           await Provider.of<DatabaseService>(context, listen: false)
-              .calculateComprehensionProgress(index);
+              .calculateComprehensionProgress("Comprehension", index);
       return progress;
     }
 
     if (title == 'Vocabulary Practice') {
       final progress =
           await Provider.of<DatabaseService>(context, listen: false)
-              .calculateVocabularyProgress(index);
+              .calculateComprehensionProgress("Vocabulary", index);
       return progress;
     }
 

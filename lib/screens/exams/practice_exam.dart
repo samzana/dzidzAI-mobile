@@ -25,7 +25,7 @@ class PracticeExam extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: white,
         title: Text(
-          'Practice Exam $index',
+          'Practice Exam ${index + 1}',
           style: const TextStyle(
             fontFamily: 'Baloo 2',
             fontSize: 25,

@@ -3,6 +3,7 @@ import 'package:dzidzai_mobile/components/lessons/passage_widget.dart';
 import 'package:dzidzai_mobile/models/api/grade_reading_request.dart';
 import 'package:dzidzai_mobile/models/reading/comprehension_practice.dart';
 import 'package:dzidzai_mobile/providers/ai_api/grade_reading_provider.dart';
+import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,10 +12,12 @@ import 'package:provider/provider.dart';
 class ComprehensionPractice extends StatefulWidget {
   const ComprehensionPractice({
     super.key,
+    required this.passageIndex,
     required this.comprehensionPractice,
     required this.isVocabulary,
   });
 
+  final int passageIndex;
   final ComprehensionPracticeModel comprehensionPractice;
   final bool isVocabulary;
 
@@ -37,6 +40,8 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
       }
       final gradeReadingProvider =
           Provider.of<GradeReadingProvider>(context, listen: false);
+      final databaseService = Provider.of<DatabaseService>(context, listen: false);
+
       final request = GradeReadingRequest(
         passage: widget.comprehensionPractice.passage,
         question:
@@ -50,9 +55,24 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
         setState(() {
           _isAnswered = true;
         });
+
+        // Save the answer to the database
+    
+        databaseService.trackComprehensionAnswer(
+          widget.isVocabulary ? 'Vocabulary' : 'Comprehension',
+          widget.passageIndex,
+          questionNumber,
+          gradeReadingProvider.response!.grade.startsWith("Correct"),
+        );
+        
       }).catchError((error) {
-        //Handle error case
-        print(error);
+        setState(() {
+          _isAnswered = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to connect to the server. Please make sure you have internet connection and try again.')),
+        );
       });
     });
   }
@@ -201,8 +221,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                         child: Text(
                           gradeReadingProvider.response?.grade ?? '',
                           style: TextStyle(
-                            color: gradeReadingProvider.response!.grade
-                                    .startsWith("Correct")
+                            color: (gradeReadingProvider.response?.grade ?? '').startsWith("Correct")
                                 ? green
                                 : red,
                             fontFamily: 'Baloo 2',

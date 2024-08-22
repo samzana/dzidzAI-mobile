@@ -8,9 +8,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PaperTwo extends StatefulWidget {
   const PaperTwo({
-    Key? key,
+    super.key,
     required this.paper,
-  }) : super(key: key);
+  });
 
   final PaperTwoPracticeModel paper;
 

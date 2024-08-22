@@ -12,8 +12,9 @@ class PracticeExams extends StatelessWidget {
   const PracticeExams({super.key});
 
   Future<double> _calculateProgress(BuildContext context, int index) async {
-    final progress = await Provider.of<DatabaseService>(context, listen: false)
-        .calculateOverallExamPracticeProgress(index);
+    final progress =
+        await Provider.of<DatabaseService>(context, listen: false)
+            .calculateOverallExamPracticeProgress(index);
     return progress;
   }
 
@@ -68,9 +69,9 @@ class PracticeExams extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => PracticeExam(
-                                  index: index-1,
-                                  paperOne: paperOneQuestions[index-1],
-                                  paperTwo: paperTwoQuestions[index-1],
+                                  index: index - 1,
+                                  paperOne: paperOneQuestions[index - 1],
+                                  paperTwo: paperTwoQuestions[index - 1],
                                 ),
                               ),
                             );

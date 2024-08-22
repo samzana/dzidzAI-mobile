@@ -12,25 +12,34 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   
+
   // Initialize DatabaseService
   final databaseService = DatabaseService();
   await databaseService.init();
 
-  runApp(MyApp(databaseService: databaseService));
+  runApp(
+    MyApp(
+      databaseService: databaseService,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   final DatabaseService databaseService;
 
-  const MyApp({super.key, required this.databaseService});
+  const MyApp({
+    super.key,
+    required this.databaseService,
+  });
 
   @override
   Widget build(BuildContext context) {

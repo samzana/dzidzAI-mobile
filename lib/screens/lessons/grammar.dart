@@ -33,12 +33,6 @@ class Grammar extends StatelessWidget {
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           color: white,
-          /*
-          image: DecorationImage(
-            image: AssetImage('assets/images/background1.png'),
-            fit: BoxFit.cover,
-          ),
-          */
         ),
         child: SafeArea(
           child: SingleChildScrollView(

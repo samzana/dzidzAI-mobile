@@ -74,6 +74,7 @@ void navigateToPractice(BuildContext context, String exercise, int index) {
         builder: (context) => FreeCompositionsPractice(
           freeCompositionsPractice: compositions[index],
           compositionType: exercise,
+          index: index,
         ),
       ),
     );
@@ -84,6 +85,7 @@ void navigateToPractice(BuildContext context, String exercise, int index) {
         builder: (context) => GuidedCompositionsPractice(
           guidedCompositionsPractice: compositions[index],
           compositionType: exercise,
+          index: index,
         ),
       ),
     );

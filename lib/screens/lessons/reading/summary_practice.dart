@@ -30,10 +30,10 @@ class _SummaryPracticeState extends State<SummaryPractice> {
   bool _isAnswered = false;
   String? grade;
   String? feedback;
-  Color gradeColor = Colors.black;
+  Color gradeColor = black;
   String? errorMessage;
   String? previousFeedback;
-  Color previousFeedbackColor = Colors.grey;
+  Color previousFeedbackColor = grey;
 
   @override
   void initState() {

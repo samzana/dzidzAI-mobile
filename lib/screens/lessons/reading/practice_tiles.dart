@@ -33,6 +33,90 @@ class PracticeTiles extends StatelessWidget {
       return progress;
     }
 
+    if (title == 'Narrative') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Narrative', index);
+      return progress;
+    }
+
+    if (title == 'Descriptive') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Descriptive', index);
+      return progress;
+    }
+
+    if (title == 'Informative') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Informative', index);
+      return progress;
+    }
+
+    if (title == 'Argumentative') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Argumentative', index);
+      return progress;
+    }
+
+    if (title == 'Discursive') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Discursive', index);
+      return progress;
+    }
+
+    if (title == 'Creative') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('free', 'Creative', index);
+      return progress;
+    }
+
+    if (title == 'Memos') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'Memos', index);
+      return progress;
+    }
+
+    if (title == 'Letters') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'Letters', index);
+      return progress;
+    }
+
+    if (title == 'Reports') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'Reports', index);
+      return progress;
+    }
+
+    if (title == 'CV') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'CV', index);
+      return progress;
+    }
+
+    if (title == 'Articles') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'Articles', index);
+      return progress;
+    }
+
+    if (title == 'Speeches') {
+      final progress =
+          await Provider.of<DatabaseService>(context, listen: false)
+              .getCompositionProgress('guided', 'Speeches', index);
+      return progress;
+    }
+
     final progress = await Provider.of<DatabaseService>(context, listen: false)
         .calculateSummaryProgress(index);
     return progress;
@@ -68,7 +152,9 @@ class PracticeTiles extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: ListView.builder(
               itemCount: freeCompositions.contains(title) ||
-                        guidedCompositions.contains(title) ?  exercises.length + 1 : exercises.length,
+                      guidedCompositions.contains(title)
+                  ? exercises.length + 1
+                  : exercises.length,
               itemBuilder: (context, index) {
                 if (index == 0 &&
                     (freeCompositions.contains(title) ||

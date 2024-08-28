@@ -1,6 +1,8 @@
 import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
 import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
+import 'package:dzidzai_mobile/data/writing/free_composition_practice.dart';
+import 'package:dzidzai_mobile/data/writing/guided_composition_practice.dart';
 import 'package:dzidzai_mobile/utils/get_total_questions.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -285,7 +287,6 @@ class DatabaseService {
     }
   }
 
-  
   Future<double> calculateOverallReadingProgress() async {
     final List<Map<String, dynamic>> results = await _database.query(
       'ReadingProgress',
@@ -300,28 +301,179 @@ class DatabaseService {
         0,
         (sum, comprehensionPractice) =>
             sum + comprehensionPractice.questions.length);
-    
-    int totalVocabularyQuestions = vocabularyQuestions.fold(
-        0,
-        (sum, vocabularyPractice) =>
-            sum + vocabularyPractice.questions.length);
-    
-    int totalReadingQuestions = totalComprehensionQuestions + totalVocabularyQuestions;
 
+    int totalVocabularyQuestions = vocabularyQuestions.fold(0,
+        (sum, vocabularyPractice) => sum + vocabularyPractice.questions.length);
+
+    int totalReadingQuestions =
+        totalComprehensionQuestions + totalVocabularyQuestions;
 
     double readingProgress = totalReadingQuestions > 0
         ? (correctCount / totalReadingQuestions) * 100
         : 0.0;
-    
+
     double summaryProgress = await calculateOverallSummaryProgress();
 
     return (readingProgress + summaryProgress) / 2;
   }
 
-  // Placeholder for writing progress calculation
+  Future<void> recordEssayResponse(
+      String freeOrGuided,
+      String subsection,
+      int compositionIndex,
+      String studentResponse,
+      int grade,
+      String feedback) async {
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
+      'WritingProgress',
+      where: 'freeOrGuided = ? AND subsection = ? AND compositionIndex = ?',
+      whereArgs: [freeOrGuided, subsection, compositionIndex],
+    );
+
+
+    if (existingEntries.isNotEmpty) {
+      await _database.update(
+        'WritingProgress',
+        {
+          'studentResponse': studentResponse,
+          'grade': grade,
+          'feedback': feedback,
+        },
+        where: 'freeOrGuided = ? AND subsection = ? AND compositionIndex = ?',
+        whereArgs: [freeOrGuided, subsection, compositionIndex],
+      );
+    } else {
+      await _database.insert(
+        'WritingProgress',
+        {
+          'freeOrGuided': freeOrGuided,
+          'subsection': subsection,
+          'compositionIndex': compositionIndex,
+          'studentResponse': studentResponse,
+          'grade': grade,
+          'feedback': feedback,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
+
+  Future<Map<String, dynamic>?> getPreviousEssaySubmission(
+      String freeOrGuided, String subsection, int compositionIndex) async {
+    final List<Map<String, dynamic>> existingEntries = await _database.query(
+      'WritingProgress',
+      where: 'freeOrGuided = ? AND subsection = ? AND compositionIndex = ?',
+      whereArgs: [freeOrGuided, subsection, compositionIndex],
+    );
+
+    if (existingEntries.isNotEmpty) {
+      return existingEntries.first;
+    } else {
+      return null;
+    }
+  }
+
+  Future<double> getCompositionProgress(
+      String freeOrGuided, String subsection, int compositionIndex) async {
+    final List<Map<String, dynamic>> result = await _database.query(
+      'WritingProgress',
+      columns: ['grade'],
+      where: 'freeOrGuided = ? AND subsection = ? AND compositionIndex = ?',
+      whereArgs: [freeOrGuided, subsection, compositionIndex],
+    );
+
+    if (result.isEmpty) {
+      return 0.0;
+    }
+
+    int grade = result.first['grade'];
+
+    double progress;
+    if (freeOrGuided == 'free') {
+      progress = (grade / 30) * 100;
+    } else if (freeOrGuided == 'guided') {
+      progress = (grade / 20) * 100;
+    } else {
+      progress = 0.0;
+    }
+    return progress;
+  }
+
+  Future<double> getSubsectionProgress(
+      String freeOrGuided, String subsection) async {
+    final List<Map<String, dynamic>> results = await _database.query(
+      'WritingProgress',
+      columns: ['grade'],
+      where: 'freeOrGuided = ? AND subsection = ?',
+      whereArgs: [freeOrGuided, subsection],
+    );
+
+    if (results.isEmpty) {
+      return 0.0;
+    }
+
+    int totalGrades =
+        results.fold(0, (sum, row) => sum + (row['grade'] as int));
+
+    int numberOfSubmissions = results.length;
+    int totalPossibleGrades;
+
+    if (freeOrGuided == 'free') {
+      totalPossibleGrades = numberOfSubmissions * 30;
+    } else if (freeOrGuided == 'guided') {
+      totalPossibleGrades = numberOfSubmissions * 20;
+    } else {
+      return 0.0;
+    }
+
+    return (totalGrades / totalPossibleGrades) * 100;
+  }
+
   Future<double> calculateOverallWritingProgress() async {
-    // Implement writing progress calculation here
-    return 0.0;
+    final List<Map<String, dynamic>> freeResults = await _database.query(
+      'WritingProgress',
+      columns: ['grade'],
+      where: 'freeOrGuided = ?',
+      whereArgs: ['free'],
+    );
+
+    int totalFreeGrades =
+        freeResults.fold(0, (sum, row) => sum + (row['grade'] as int));
+
+    int totalFreeQuestions = narrativeCompositionQuestions.length +
+        descriptiveCompositionQuestions.length +
+        informativeCompositionQuestions.length +
+        argumentativeCompositionQuestions.length +
+        discursiveCompositionQuestions.length +
+        creativeCompositionQuestions.length;
+    int totalFreePossible = totalFreeQuestions * 30;
+
+    final List<Map<String, dynamic>> guidedResults = await _database.query(
+      'WritingProgress',
+      columns: ['grade'],
+      where: 'freeOrGuided = ?',
+      whereArgs: ['guided'],
+    );
+
+    int totalGuidedGrades =
+        guidedResults.fold(0, (sum, row) => sum + (row['grade'] as int));
+
+    int totalGuidedQuestions = memosCompositionQuestions.length +
+        lettersCompositionQuestions.length +
+        articlesCompositionQuestions.length +
+        cvCompositionQuestions.length +
+        reportsCompositionQuestions.length +
+        speechesCompositionQuestions.length;
+    int totalGuidedPossible = totalGuidedQuestions * 20;
+
+    double freeProgress = totalFreePossible > 0
+        ? (totalFreeGrades / totalFreePossible) * 100
+        : 0.0;
+    double guidedProgress = totalGuidedPossible > 0
+        ? (totalGuidedGrades / totalGuidedPossible) * 100
+        : 0.0;
+
+    return (freeProgress + guidedProgress) / 2;
   }
 
   Future<double> calculateOverallExamPracticeProgress(index) async {

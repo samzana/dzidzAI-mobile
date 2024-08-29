@@ -24,7 +24,7 @@ class CurrentStanding extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
         Text(
-          'N/A',
+          currentStanding,
           style: TextStyle(
             fontFamily: 'Baloo 2',
             color: white,
@@ -34,11 +34,11 @@ class CurrentStanding extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          'Current Grade Standing',
+          'Overall Progress',
           style: TextStyle(
             fontFamily: 'Baloo 2',
             color: white,
-            fontSize: 18.sp,
+            fontSize: 23.sp,
             fontWeight: FontWeight.w800,
           ),
         ),

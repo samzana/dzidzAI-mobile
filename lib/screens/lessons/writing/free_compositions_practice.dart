@@ -75,6 +75,15 @@ class _FreeCompositionsPracticeState extends State<FreeCompositionsPractice> {
     //grade essay using llm
     final essay = _controller.text;
 
+    final wordCount = essay.split(' ').length;
+
+    if (wordCount < 400 || wordCount > 450) {
+      setState(() {
+        errorMessage = 'Free composition must be between 400 and 450 words.';
+      });
+      return;
+    }
+
     if (essay.isEmpty) {
       setState(() {
         errorMessage = 'Please write a composition before submitting';
@@ -179,16 +188,22 @@ class _FreeCompositionsPracticeState extends State<FreeCompositionsPractice> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  if (errorMessage != null)
-                    Text(
-                      errorMessage!,
-                      style: TextStyle(
-                        color: red,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Baloo 2',
+                  if (errorMessage != null)...[
+                    Center(
+                      child: Text(
+                        errorMessage!,
+                        style: TextStyle(
+                          color: red,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Baloo 2',
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                  ],
                   if (!_isAnswered)
                     !gradeEssayProvider.isLoading
                         ? Center(

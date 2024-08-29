@@ -476,6 +476,20 @@ class DatabaseService {
     return (freeProgress + guidedProgress) / 2;
   }
 
+  Future<int> calculateOverallProgress() async {
+    final double writingProgress = await calculateOverallWritingProgress();
+    final double readingProgress = await calculateOverallReadingProgress();
+    final double grammarProgress = await calculateOverallGrammarProgress();
+
+    // Calculate weighted average
+    final double weightedAverage =
+        (writingProgress * 0.4) + (readingProgress * 0.4) + (grammarProgress * 0.2);
+
+    // Return the result as an integer
+    return weightedAverage.round();
+  }
+
+
   Future<double> calculateOverallExamPracticeProgress(index) async {
     return 20.0;
   }

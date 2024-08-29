@@ -70,6 +70,15 @@ class _SummaryPracticeState extends State<SummaryPractice> {
   void checkSummary() {
     final summary = _controller.text;
 
+    final wordCount = summary.split(' ').length;
+
+    if (wordCount < 150 || wordCount > 160) {
+      setState(() {
+        errorMessage = 'Summary must be between 150 and 160 words.';
+      });
+      return;
+    }
+
     if (summary.isEmpty) {
       // Handle empty answer case
       setState(() {
@@ -224,16 +233,16 @@ class _SummaryPracticeState extends State<SummaryPractice> {
                   if (!_isAnswered && previousFeedback == null)
                     !gradeSummaryProvider.isLoading
                         ? Padding(
-                          padding: EdgeInsets.only(bottom: 40.h),
-                          child: Center(
-                            child: AppButton(
+                            padding: EdgeInsets.only(bottom: 40.h),
+                            child: Center(
+                              child: AppButton(
                                 text: "Check Summary",
                                 color: black,
                                 width: 390.w,
                                 onPressed: checkSummary,
                               ),
-                          ),
-                        )
+                            ),
+                          )
                         : const Center(
                             child: CircularProgressIndicator(
                               color: blue,

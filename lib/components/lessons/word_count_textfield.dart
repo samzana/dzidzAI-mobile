@@ -28,7 +28,6 @@ class _WordCountTextFieldState extends State<WordCountTextField> {
   @override
   void dispose() {
     widget.controller.removeListener(_updateWordCount);
-    widget.controller.dispose();
     super.dispose();
   }
 

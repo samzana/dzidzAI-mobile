@@ -1,5 +1,7 @@
+import 'package:dzidzai_mobile/services/tab_navigation/landing_page_bloc.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FullExam extends StatelessWidget {
@@ -30,24 +32,25 @@ class FullExam extends StatelessWidget {
                 image: DecorationImage(
                   image: AssetImage(
                       'assets/images/graded-exam.png'), 
-                  //fit: BoxFit.cover, 
                 ),
               ),
             ),
             const Spacer(),
             Text(
-              'Take Full Graded Exam',
+              'Practice Full Exam',
               style: TextStyle(
                 fontFamily: 'Baloo 2',
                 color: white,
-                fontSize: 18.sp,
+                fontSize: 23.sp,
                 fontWeight: FontWeight.w800,
               ),
             ),
           ],
         ),
       ),
-      onTap: (){},
+      onTap: (){
+        BlocProvider.of<LandingPageBloc>(context).add(TabChange(tabIndex: 2));
+      },
     );
   }
 }

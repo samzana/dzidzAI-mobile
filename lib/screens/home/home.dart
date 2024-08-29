@@ -30,13 +30,28 @@ class Home extends StatelessWidget {
             ],
           ),
           SizedBox(height: 5.h),
-          const Row(
+          Row(
             children: [
-              CurrentStanding(
-                currentStanding: "A",
+              FutureBuilder<int>(
+                future: Provider.of<DatabaseService>(context, listen: false)
+                    .calculateOverallProgress(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+
+                  final progress = snapshot.data ?? 0;
+                  return CurrentStanding(
+                    currentStanding: '$progress%',  // Display progress as percentage
+                  );
+                },
               ),
-              Spacer(),
-              FullExam()
+              const Spacer(),
+              const FullExam(),
             ],
           ),
           SizedBox(height: 60.h),
@@ -126,3 +141,4 @@ class Home extends StatelessWidget {
     );
   }
 }
+

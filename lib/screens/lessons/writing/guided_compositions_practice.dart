@@ -78,6 +78,15 @@ class _GuidedCompositionsPracticeState
     //grade essay using llm
     final essay = _controller.text;
 
+    final wordCount = essay.split(' ').length;
+
+    if (wordCount < 250 || wordCount > 300) {
+      setState(() {
+        errorMessage = 'Guided composition must be between 250 and 300 words.';
+      });
+      return;
+    }
+
     if (essay.isEmpty) {
       setState(() {
         errorMessage = 'Please write a composition before submitting';
@@ -169,16 +178,20 @@ class _GuidedCompositionsPracticeState
                       WordCountTextField(
                           wordCount: 300, controller: _controller),
                       SizedBox(height: 40.h),
-                      if (errorMessage != null)
-                        Text(
-                          errorMessage!,
-                          style: TextStyle(
-                            color: red,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Baloo 2',
+                      if (errorMessage != null)... [
+                        Center(
+                          child: Text(
+                            errorMessage!,
+                            style: TextStyle(
+                              color: red,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Baloo 2',
+                            ),
                           ),
                         ),
+                        SizedBox(height: 20.h),
+                      ],
                       if (!_isAnswered)
                         !gradeEssayProvider.isLoading
                             ? Center(

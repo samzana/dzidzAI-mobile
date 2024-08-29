@@ -202,14 +202,16 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     SizedBox(height: 20.h),
                     if (!_isAnswered)
                       !gradeReadingProvider.isLoading
-                          ? AppButton(
-                              text: 'Submit Answer',
-                              color: black,
-                              width: 400.w,
-                              onPressed: () {
-                                checkAnswer();
-                              },
-                            )
+                          ? Center(
+                            child: AppButton(
+                                text: 'Submit Answer',
+                                color: black,
+                                width: 400.w,
+                                onPressed: () {
+                                  checkAnswer();
+                                },
+                              ),
+                          )
                           : const Center(
                               child: CircularProgressIndicator(
                                 color: blue,

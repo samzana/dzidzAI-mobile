@@ -34,6 +34,8 @@ class _PaperOneState extends State<PaperOne> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
+    _guidedCompositionScrollController.dispose();
     _sectionAController.dispose();
     _sectionBController.dispose();
     super.dispose();

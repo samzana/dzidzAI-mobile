@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../../../bootcamp_projects"
+		},
+		{
+			"path": "../../../playground/playground-angular"
 		}
 	],
 	"settings": {

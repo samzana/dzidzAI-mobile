@@ -1,5 +1,7 @@
 import 'package:dzidzai_mobile/components/lessons/reading_practice_tile.dart';
 import 'package:dzidzai_mobile/components/lessons/writing_guidelines_tile.dart';
+import 'package:dzidzai_mobile/data/writing/composition_tips.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing/guidelines_and_tips.dart';
 import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:dzidzai_mobile/utils/navigate_to_reading_practice.dart';
@@ -8,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class PracticeTiles extends StatelessWidget {
-  const PracticeTiles({
+  PracticeTiles({
     super.key,
     required this.title,
     required this.exercises,
@@ -16,6 +18,21 @@ class PracticeTiles extends StatelessWidget {
 
   final String title;
   final List exercises;
+
+  final guidelinesMap = {
+    'Narrative': narrativeCompositionTips,
+    'Descriptive': descriptiveCompositionTips,
+    'Informative': informativeCompositionTips,
+    'Argumentative': argumentativeCompositionTips,
+    'Discursive': discursiveCompositionTips,
+    'Creative': creativeCompositionTips,
+    'Memos': memoCompositionTips,
+    'Letters': memoCompositionTips,
+    'Reports': reportCompositionTips,
+    'CV': cvCompositionTips,
+    'Articles': articleCompositionTips,
+    'Speeches': speechCompositionTips, 
+  };
 
   Future<double> _calculateProgress(
       BuildContext context, String title, int index) async {
@@ -163,7 +180,17 @@ class PracticeTiles extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 20.h),
                     child: WritingGuidelinesTile(
                       title: title,
-                      onPressed: () {},
+                      onPressed: () {
+                        final guidelines = guidelinesMap[title];
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GuidelinesAndTips(
+                              compositionTips: guidelines!,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   );
                 }

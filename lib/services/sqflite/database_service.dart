@@ -491,10 +491,10 @@ class DatabaseService {
 
 
   Future<double> calculateOverallExamPracticeProgress(index) async {
-    return 20.0;
+    return 0.0;
   }
 
   Future<double> calculateExamPracticeProgress(paper, index) async {
-    return 20.0;
+    return 0.0;
   }
 }

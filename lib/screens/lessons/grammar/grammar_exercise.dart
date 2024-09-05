@@ -364,8 +364,8 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                 RichText(
                                   text: TextSpan(
                                     text: answer == currentQuestion.answer
-                                        ? 'Correct! The answer is '
-                                        : 'Incorrect, the correct answer is ',
+                                        ? 'Correct! The answer is: \n\n'
+                                        : 'Incorrect, the correct answer is: \n\n',
                                     style: TextStyle(
                                       fontFamily: 'Baloo 2',
                                       fontSize: 20.sp,
@@ -376,7 +376,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '${currentQuestion.answer} ',
+                                        text: '${currentQuestion.answer} \n\n',
                                         style: TextStyle(
                                           color:
                                               answer == currentQuestion.answer

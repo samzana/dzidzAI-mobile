@@ -38,7 +38,6 @@ class _GrammarExerciseState extends State<GrammarExercise> {
   Future<void> _loadUnansweredQuestions() async {
     final databaseService =
         Provider.of<DatabaseService>(context, listen: false);
-    //await databaseService.printDatabaseContents();
     List<int> answeredIndices =
         await databaseService.fetchAnsweredGrammarQuestions(widget.title);
 

@@ -1,8 +1,10 @@
 import 'package:dzidzai_mobile/components/lessons/reading_card.dart';
 import 'package:dzidzai_mobile/data/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/data/reading/reading_tips.dart';
 import 'package:dzidzai_mobile/data/reading/summary_practice.dart';
 import 'package:dzidzai_mobile/data/reading/vocabulary_practice.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/practice_tiles.dart';
+import 'package:dzidzai_mobile/screens/lessons/writing/guidelines_and_tips.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -71,7 +73,15 @@ class Reading extends StatelessWidget {
                         wrapperColor: lightBlue,
                         text: "Comprehension Tips",
                         icon: "assets/images/wand.png",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => GuidelinesAndTips(
+                                compositionTips: comprehensionTips,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       ReadingCard(
@@ -112,7 +122,15 @@ class Reading extends StatelessWidget {
                         wrapperColor: lightBlue,
                         text: "Vocabulary Tips",
                         icon: "assets/images/wand.png",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => GuidelinesAndTips(
+                                compositionTips: vocabularyTips,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       ReadingCard(
@@ -153,7 +171,15 @@ class Reading extends StatelessWidget {
                         wrapperColor: lightBlue,
                         text: "Summary     Tips",
                         icon: "assets/images/wand.png",
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => GuidelinesAndTips(
+                                compositionTips: summaryTips,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Spacer(),
                       ReadingCard(

@@ -1,5 +1,3 @@
-  import 'package:dzidzai_mobile/data/grammar/adjectives.dart';
-import 'package:dzidzai_mobile/data/grammar/adverbs.dart';
 import 'package:dzidzai_mobile/data/grammar/direct_and_indirect_speech.dart';
 import 'package:dzidzai_mobile/data/grammar/nouns.dart';
 import 'package:dzidzai_mobile/data/grammar/pronouns.dart';
@@ -13,10 +11,6 @@ int getTotalQuestionsForSection(String section) {
         return nounQuestions.length;
       case 'Verbs':
         return verbQuestions.length;
-      case 'Adjectives':
-        return adjectiveQuestions.length;
-      case 'Adverbs':
-        return adverbQuestions.length;
       case 'Pronouns':
         return pronounQuestions.length;
       case 'Word Formation':
@@ -39,8 +33,6 @@ int getTotalQuestionsForSection(String section) {
 
     totalQuestions += nounQuestions.length;
     totalQuestions += verbQuestions.length;
-    totalQuestions += adjectiveQuestions.length;
-    totalQuestions += adverbQuestions.length;
     totalQuestions += pronounQuestions.length;
     totalQuestions += wordFormationQuestions.length;
     totalQuestions += sentenceConstructionQuestions.length;

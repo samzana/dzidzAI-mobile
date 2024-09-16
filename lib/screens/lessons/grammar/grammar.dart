@@ -1,6 +1,4 @@
 import 'package:dzidzai_mobile/components/lessons/writing_card.dart';
-import 'package:dzidzai_mobile/data/grammar/adjectives.dart';
-import 'package:dzidzai_mobile/data/grammar/adverbs.dart';
 import 'package:dzidzai_mobile/data/grammar/direct_and_indirect_speech.dart';
 import 'package:dzidzai_mobile/data/grammar/nouns.dart';
 import 'package:dzidzai_mobile/data/grammar/pronouns.dart';
@@ -127,43 +125,6 @@ class Grammar extends StatelessWidget {
                                   builder: (context) => GrammarExercise(
                                     title: 'Verbs',
                                     questions: verbQuestions,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          WritingCard(
-                            text: "Adjectives",
-                            icon: "assets/images/grammar.png",
-                            progress: progress['Adjectives'] ?? 0,
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => GrammarExercise(
-                                    title: 'Adjectives',
-                                    questions: adjectiveQuestions,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                          const Spacer(),
-                          WritingCard(
-                            text: "Adverbs",
-                            icon: "assets/images/grammar.png",
-                            progress: progress['Adverbs'] ?? 0,
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => GrammarExercise(
-                                    title: 'Adverbs',
-                                    questions: adverbQuestions,
                                   ),
                                 ),
                               );

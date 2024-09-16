@@ -67,7 +67,7 @@ class DatabaseService {
         ''');
       });
     } catch (e) {
-      print('Error initializing database: $e');
+      
     }
   }
 

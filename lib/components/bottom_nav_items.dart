@@ -61,21 +61,6 @@ List<BottomNavigationBarItem> bottomNavItems = <BottomNavigationBarItem>[
     ),
     label: 'Exams'
   ),
-  /*
-  BottomNavigationBarItem(
-    icon: SvgPicture.asset(
-      'assets/images/settings.svg',
-      height: 44.h,
-      width: 44.w,
-    ),
-    activeIcon: SvgPicture.asset(
-      'assets/images/selected_settings.svg',
-      height: 44.h,
-      width: 44.w,
-    ),
-    label: 'Settings'
-  ),
-  */
 ];
 
 const List<Widget> bottomNavScreen = <Widget>[

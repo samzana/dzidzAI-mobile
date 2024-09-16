@@ -26,7 +26,8 @@ final narrativeCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel descriptiveCompositionTips = CompositionTipsModel(
-  description: "A descriptive composition brings the reader into the world you're describing by using vivid language, detailed observations, and atmosphere. Focus on creating a clear and vivid picture with your words.",
+  description:
+      "A descriptive composition brings the reader into the world you're describing by using vivid language, detailed observations, and atmosphere. Focus on creating a clear and vivid picture with your words.",
   tips: [
     "Essays must have atmosphere, observation, and sensitivity.",
     "Use of adjectives and vocabulary is highly recommended.",
@@ -44,7 +45,8 @@ CompositionTipsModel descriptiveCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel discursiveCompositionTips = CompositionTipsModel(
-  description: "A discursive essay discusses multiple ideas on a given topic, providing a balanced view by exploring arguments for and against it. It requires a thorough understanding of the topic and an organized approach to present facts and explanations effectively.",
+  description:
+      "A discursive essay discusses multiple ideas on a given topic, providing a balanced view by exploring arguments for and against it. It requires a thorough understanding of the topic and an organized approach to present facts and explanations effectively.",
   tips: [
     "Choose this option only if you understand the topic and have a fair amount of knowledge on the topic being asked.",
     "Plan the composition. Every composition has an introduction, body, and conclusion. For discursive compositions, it helps to actually jot down the points you’ll address and outline them into paragraphs.",
@@ -64,7 +66,8 @@ CompositionTipsModel discursiveCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel argumentativeCompositionTips = CompositionTipsModel(
-  description: "An argumentative essay presents a clear stance on a topic and supports it with evidence while addressing and refuting opposing views. It requires thorough knowledge of the topic, structured argumentation, and a balanced approach.",
+  description:
+      "An argumentative essay presents a clear stance on a topic and supports it with evidence while addressing and refuting opposing views. It requires thorough knowledge of the topic, structured argumentation, and a balanced approach.",
   tips: [
     "Before choosing the topic, make sure you have a fair amount of knowledge on it. Once decided, pick a side and explore the points.",
     "Similar to a discursive topic, always jot down a list of points for the side you’re going to agree with. Be sure to come up with a few for the other side as well.",
@@ -83,7 +86,8 @@ CompositionTipsModel argumentativeCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel informativeCompositionTips = CompositionTipsModel(
-  description: "An informative essay aims to educate the reader about a particular topic by providing clear and detailed information. It requires thorough understanding of the subject, research, and clear communication of facts and examples.",
+  description:
+      "An informative essay aims to educate the reader about a particular topic by providing clear and detailed information. It requires thorough understanding of the subject, research, and clear communication of facts and examples.",
   tips: [
     "Plan the composition.",
     "Understand the topic. Really important to know the prompt so you know what aspects to cover.",
@@ -100,7 +104,8 @@ CompositionTipsModel informativeCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel creativeCompositionTips = CompositionTipsModel(
-  description: "A creative composition often revolves around a one-word prompt that serves as a central theme or concept. The composition can take a thematic or expository/discursive approach depending on the prompt and the writer's choice.",
+  description:
+      "A creative composition often revolves around a one-word prompt that serves as a central theme or concept. The composition can take a thematic or expository/discursive approach depending on the prompt and the writer's choice.",
   tips: [
     "Often, this is a one-word prompt e.g., Regret, Revenge, Fire, Water, that must not be treated as a character’s name.",
     "Choose this topic only if you are sure about it because it can be hard to navigate.",
@@ -112,7 +117,8 @@ CompositionTipsModel creativeCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel articleCompositionTips = CompositionTipsModel(
-  description: "Magazine articles are designed to be informative yet easy to understand. They should captivate readers with interesting headings and engaging content, presented in a well-organized and visually appealing manner.",
+  description:
+      "Magazine articles are designed to be informative yet easy to understand. They should captivate readers with interesting headings and engaging content, presented in a well-organized and visually appealing manner.",
   tips: [
     "The heading must be interesting.",
     "The article should be divided into sections, each with a subheading.",
@@ -127,7 +133,8 @@ CompositionTipsModel articleCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel reportCompositionTips = CompositionTipsModel(
-  description: "Reports provide an account of an event or a description of a situation, often for an authoritative figure. The report should be comprehensive, logically organized, and include your own relevant material.",
+  description:
+      "Reports provide an account of an event or a description of a situation, often for an authoritative figure. The report should be comprehensive, logically organized, and include your own relevant material.",
   tips: [
     "Amplify the given points and explore them in depth.",
     "Construct a variety of sentences to keep the report engaging.",
@@ -140,7 +147,8 @@ CompositionTipsModel reportCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel memoCompositionTips = CompositionTipsModel(
-  description: "A memo is a formal written statement or record of communication typically used in the workplace. It serves to request or remind recipients about important issues. The tone should be semi-official, and the memo must include specific elements such as To, From, Date, and Subject.",
+  description:
+      "A memo is a formal written statement or record of communication typically used in the workplace. It serves to request or remind recipients about important issues. The tone should be semi-official, and the memo must include specific elements such as To, From, Date, and Subject.",
   tips: [
     "Ensure the memo includes the four key elements: To, From, Date, and Subject.",
     "Use a semi-official, formal tone appropriate for workplace communication.",
@@ -154,7 +162,8 @@ CompositionTipsModel memoCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel speechCompositionTips = CompositionTipsModel(
-  description: "A speech is a formal address delivered to an audience. It should be tailored to the audience’s understanding and interests, and crafted to convey a clear message with a memorable impact. The speech should be well-organized, engaging, and purposeful.",
+  description:
+      "A speech is a formal address delivered to an audience. It should be tailored to the audience’s understanding and interests, and crafted to convey a clear message with a memorable impact. The speech should be well-organized, engaging, and purposeful.",
   tips: [
     "Determine your audience and customize your speech accordingly. Avoid jargon or terms your audience may not understand.",
     "Clarify your purpose and message: know why you are giving the speech and what you want your audience to take away.",
@@ -168,7 +177,8 @@ CompositionTipsModel speechCompositionTips = CompositionTipsModel(
 );
 
 CompositionTipsModel cvCompositionTips = CompositionTipsModel(
-  description: "A Curriculum Vitae (CV) is a comprehensive summary of a person's educational background and work experience, usually submitted for job applications. It should highlight key qualifications, relevant skills, and personal details.",
+  description:
+      "A Curriculum Vitae (CV) is a comprehensive summary of a person's educational background and work experience, usually submitted for job applications. It should highlight key qualifications, relevant skills, and personal details.",
   tips: [
     "Include personal demographic information such as contact details, date of birth, and marital status.",
     "Highlight educational history, including degrees obtained, institutions attended, and graduation dates.",
@@ -180,11 +190,44 @@ CompositionTipsModel cvCompositionTips = CompositionTipsModel(
   example: null,
 );
 
-
-
-
-
-
-
-
-
+CompositionTipsModel letterCompositionTips = CompositionTipsModel(
+  description: 'Tips for Writing Different Types of Letters',
+  tips: [
+    'Letters to the newspaper:\n'
+        '- Quickly introduce your subject matter. Avoid verbose or wordy introductions.\n'
+        '- Clearly state your point of view.\n'
+        '- Use relevant examples.\n'
+        '- Avoid generalizations and sweeping statements.\n'
+        '- Do not “talk down” to your reader.\n'
+        '- Do not use cyber-slang.\n'
+        '- Present a balanced argument.\n'
+        '- Link your points neatly.\n'
+        '- Conclude with strong practical suggestions.\n',
+    'Letters in response to another letter/article etc:\n'
+        '- Address the referenced subject/situation in question. For example, if in response to a friend in need, address the problems being faced and then suggest solutions.\n'
+        '- Your tone should be specific to the situation; a letter to a friend can be informal, but a letter to a company in search of a job has to be formal.\n',
+    'General Business Letter:\n'
+        '- Know the purpose of the letter. Business letters usually deal with formal matters like job applications, complaints, requests, or inquiries. Stick to the point and avoid unnecessary details.\n'
+        '- Use a formal tone. A business letter should always be polite but assertive and professional. Avoid slang or casual language. Be respectful, especially if you\'re addressing someone in authority.\n'
+        '- Be clear and straight to the point. Business letters should be brief but informative. State your purpose early in the letter and make sure each paragraph focuses on one idea.\n'
+        '- Follow the correct format:\n'
+        '  - Sender’s Address (Your address)\n'
+        '  - Date\n'
+        '  - Recipient’s Address (The business’ address)\n'
+        '  - Salutation: (Dear Sir/Madam)\n'
+        '  - Subject Line (Optional): Reference\n'
+        '  - Introduction: Briefly explain why you’re writing\n'
+        '  - Body: Give more details about your request or issue. Organize information clearly.\n'
+        '  - Closing: Politely state what you expect next e.g., a response, assistance, or action.\n'
+        '  - Signature: Yours Faithfully (if you don’t know the name) or Yours sincerely (if you know the name). Followed by your name.\n'
+        '- Make sure there are no mistakes in spelling, punctuation, or grammar. This will make your letter look professional and well-written.\n'
+        '- Practice Common Business Letter Scenarios:\n'
+        '  - Job application letters\n'
+        '  - Complaint letters (e.g., about poor service)\n'
+        '  - Letters requesting information or services\n'
+        '  - Letters of inquiry\n'
+        '- Be polite throughout. Even if you\'re making a complaint, always be respectful. For example, say "I would appreciate your help" instead of "You must help me."\n'
+        '- The more you practice writing business letters, the easier it becomes. Try writing different types of business letters so you’re prepared for anything in the exams.\n',
+  ],
+  example: null,
+);

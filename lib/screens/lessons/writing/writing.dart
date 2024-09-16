@@ -278,15 +278,16 @@ class _WritingState extends State<Writing> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 WritingCard(
-                                  text: "Memos",
+                                  text: "Reports",
                                   icon: "assets/images/reading.png",
-                                  progress: memosProgress,
+                                  progress: reportsProgress,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => PracticeTiles(
-                                          title: 'Memos',
-                                          exercises: memosCompositionQuestions,
+                                          title: 'Reports',
+                                          exercises:
+                                              reportsCompositionQuestions,
                                         ),
                                       ),
                                     );
@@ -333,15 +334,16 @@ class _WritingState extends State<Writing> {
                                 ),
                                 const Spacer(),
                                 WritingCard(
-                                  text: "CV",
+                                  text: "Speeches",
                                   icon: "assets/images/reading.png",
-                                  progress: cvProgress,
+                                  progress: speechesProgress,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => PracticeTiles(
-                                          title: 'CV',
-                                          exercises: cvCompositionQuestions,
+                                          title: 'Speeches',
+                                          exercises:
+                                              speechesCompositionQuestions,
                                         ),
                                       ),
                                     );
@@ -354,16 +356,15 @@ class _WritingState extends State<Writing> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 WritingCard(
-                                  text: "Reports",
+                                  text: "Memos",
                                   icon: "assets/images/reading.png",
-                                  progress: reportsProgress,
+                                  progress: memosProgress,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => PracticeTiles(
-                                          title: 'Reports',
-                                          exercises:
-                                              reportsCompositionQuestions,
+                                          title: 'Memos',
+                                          exercises: memosCompositionQuestions,
                                         ),
                                       ),
                                     );
@@ -371,16 +372,15 @@ class _WritingState extends State<Writing> {
                                 ),
                                 const Spacer(),
                                 WritingCard(
-                                  text: "Speeches",
+                                  text: "CV",
                                   icon: "assets/images/reading.png",
-                                  progress: speechesProgress,
+                                  progress: cvProgress,
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) => PracticeTiles(
-                                          title: 'Speeches',
-                                          exercises:
-                                              speechesCompositionQuestions,
+                                          title: 'CV',
+                                          exercises: cvCompositionQuestions,
                                         ),
                                       ),
                                     );

@@ -57,7 +57,7 @@ class PracticeExam extends StatelessWidget {
                     }));
                   },
                   title: 'Paper One',
-                  progress: 20,
+                  progress: 0,
                 ),
                 SizedBox(height: 40.h),
                 ReadingPracticeTile(
@@ -68,7 +68,7 @@ class PracticeExam extends StatelessWidget {
                     }));
                   },
                   title: 'Paper Two',
-                  progress: 20,
+                  progress: 0,
                 ),
               ],
             ),

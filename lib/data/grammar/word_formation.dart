@@ -72,7 +72,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The adjective form 'naive' describes the nature of the answers given."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Beginning / Beggining",
     options: ["Beginning", "Beggining"],
     answer: "Beginning",
@@ -80,7 +80,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Beginning'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Exitement / Excitement",
     options: ["Exitement", "Excitement"],
     answer: "Excitement",
@@ -88,7 +88,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Excitement'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Accommodation / Accomodation",
     options: ["Accommodation", "Accomodation"],
     answer: "Accommodation",
@@ -96,7 +96,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Accommodation'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Environment / Environement",
     options: ["Environment", "Environement"],
     answer: "Environment",
@@ -104,7 +104,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Environment'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Reciept / Receipt",
     options: ["Reciept", "Receipt"],
     answer: "Receipt",
@@ -112,15 +112,15 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Receipt'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Belive / believe",
-    options: ["Belive", "believe"],
+    options: ["Belive", "Believe"],
     answer: "believe",
     instructions: "Choose the correct spelling of the word from the options.",
     feedback: "The correct spelling is 'believe'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Exellent / excellent",
     options: ["Exellent", "excellent"],
     answer: "excellent",
@@ -128,7 +128,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'excellent'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Courtesy / Courtsy",
     options: ["Courtesy", "Courtsy"],
     answer: "Courtesy",
@@ -136,7 +136,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Courtesy'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Prevelege / Privilege",
     options: ["Prevelege", "Privilege"],
     answer: "Privilege",
@@ -144,7 +144,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Privilege'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Atheletics / athletics",
     options: ["Atheletics", "athletics"],
     answer: "athletics",
@@ -152,7 +152,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'athletics'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Occurring / occuring",
     options: ["Occurring", "occuring"],
     answer: "Occurring",
@@ -160,7 +160,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Occurring'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Maintenance / Maintanance",
     options: ["Maintenance", "Maintanance"],
     answer: "Maintenance",
@@ -168,7 +168,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Maintenance'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Pronunciation / Pronounciation",
     options: ["Pronunciation", "Pronounciation"],
     answer: "Pronunciation",
@@ -176,7 +176,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Pronunciation'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Government / govenment",
     options: ["Government", "govenment"],
     answer: "Government",
@@ -184,7 +184,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Government'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Neighbour / neibour",
     options: ["Neighbour", "neibour"],
     answer: "Neighbour",
@@ -192,7 +192,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'Neighbour'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "Choose the correct spelling of the word: Nuisence / nuisance",
     options: ["Nuisence", "nuisance"],
     answer: "nuisance",
@@ -200,7 +200,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct spelling is 'nuisance'."
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "She chose (to, two, too) DVDs (to, two, too) give her for her birthday.",
     options: ["two, to", "to, too"],
     answer: "two, to",
@@ -208,7 +208,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophones are 'to' and 'two'. The sentence should read: 'She chose two DVDs to give her for her birthday.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "The children (threw, through) the stones (threw, through) the broken window.",
     options: ["threw, threw", "threw, through"],
     answer: "threw, through",
@@ -216,7 +216,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophones are 'threw' and 'through'. The sentence should read: 'The children threw the stones through the broken window.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "I (saw, soar, sore) the eagle (saw, soar, sore) high in the sky.",
     options: ["saw, soar", "saw, sore"],
     answer: "saw, soar",
@@ -224,7 +224,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophones are 'saw' and 'soar'. The sentence should read: 'I saw the eagle soar high in the sky.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "The nurse put IV drips in the (vains, veins, vanes) of the (patience, patients).",
     options: ["vains, patience", "veins, patients", "vanes, patience"],
     answer: "veins, patients",
@@ -232,7 +232,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophones are 'veins' and 'patients'. The sentence should read: 'The nurse put IV drips in the veins of the patients.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "The dog’s muddy (pause, paws, pores, pours) made dirty marks all over the floor.",
     options: ["paws", "pores"],
     answer: "paws",
@@ -240,7 +240,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophone is 'paws'. The sentence should read: 'The dog’s muddy paws made dirty marks all over the floor.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "What will you (wear, where, ware) to the party?",
     options: ["wear", "ware"],
     answer: "wear",
@@ -248,7 +248,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophone is 'wear'. The sentence should read: 'What will you wear to the party?'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "My neighbour’s family (praise, prays, preys) at every meal time.",
     options: ["praise", "prays"],
     answer: "prays",
@@ -256,7 +256,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     feedback: "The correct homophone is 'prays'. The sentence should read: 'My neighbour’s family prays at every meal time.'"
   ),
   GrammarExerciseModel(
-    type: "multipleChoice",
+    type: "mcq",
     question: "The artist used a brush and (palate, palette, pallet).",
     options: ["palate", "palette"],
     answer: "palette",

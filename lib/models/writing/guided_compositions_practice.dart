@@ -1,9 +1,9 @@
 class GuidedCompositionsPracticeModel {
   final String prompt;
-  final List<String> points;
+  final List<String>? points;
 
   GuidedCompositionsPracticeModel({
     required this.prompt,
-    required this.points,
+    this.points,
   });
 }

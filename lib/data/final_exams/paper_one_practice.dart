@@ -8,7 +8,11 @@ List<PaperOnePracticeModel> paperOneQuestions = [
     guidedComposition: reportsCompositionQuestions[0],
   ),
   PaperOnePracticeModel(
-    freeComposition: narrativeCompositionQuestions[0],
-    guidedComposition: reportsCompositionQuestions[0],
+    freeComposition: descriptiveCompositionQuestions[0],
+    guidedComposition: articlesCompositionQuestions[0],
   ), 
+  PaperOnePracticeModel(
+    freeComposition: narrativeCompositionQuestions[1],
+    guidedComposition: reportsCompositionQuestions[1],
+  ),
 ];

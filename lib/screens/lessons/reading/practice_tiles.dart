@@ -27,7 +27,7 @@ class PracticeTiles extends StatelessWidget {
     'Discursive': discursiveCompositionTips,
     'Creative': creativeCompositionTips,
     'Memos': memoCompositionTips,
-    'Letters': memoCompositionTips,
+    'Letters': letterCompositionTips,
     'Reports': reportCompositionTips,
     'CV': cvCompositionTips,
     'Articles': articleCompositionTips,

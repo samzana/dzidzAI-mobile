@@ -57,32 +57,34 @@ class GuidedCompositionWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20.h),
-                  Text(
-                    'Use some or all of the following points and add other ideas of your own:',
-                    style: TextStyle(
-                      fontFamily: 'Baloo 2',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w400,
+                  if (composition.points != null) ...[
+                    Text(
+                      'Use some or all of the following points and add other ideas of your own:',
+                      style: TextStyle(
+                        fontFamily: 'Baloo 2',
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: composition.points.map((point) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          '     . $point',
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: black,
-                            fontFamily: 'Baloo 2',
-                            fontWeight: FontWeight.w400,
+                    SizedBox(height: 10.h),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: composition.points!.map((point) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            '     . $point',
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color: black,
+                              fontFamily: 'Baloo 2',
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ],
               ),
             ),

@@ -114,6 +114,7 @@ class DatabaseService {
     });
   }
 
+
   Future<double> calculateProgress(
       String subsection, int totalQuestions) async {
     final List<Map<String, dynamic>> results = await _database.query(
@@ -195,6 +196,18 @@ class DatabaseService {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
+  }
+
+  Future<List<int>> fetchAnsweredReadingQuestions(String subsection, int passage) async {
+    final List<Map<String, dynamic>> maps = await _database.query(
+      'ReadingProgress',
+      where: 'subsection = ? AND passage = ? AND (isCorrect IS NULL OR isCorrect = ?)',
+      whereArgs: [subsection, passage, 1],
+    );
+
+    return List.generate(maps.length, (i) {
+      return maps[i]['questionIndex'];
+    });
   }
 
   Future<double> calculateSummaryProgress(int summaryIndex) async {

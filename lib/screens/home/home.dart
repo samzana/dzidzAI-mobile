@@ -1,7 +1,6 @@
 import 'package:dzidzai_mobile/components/authentication%20/logo.dart';
 import 'package:dzidzai_mobile/components/home/current_standing.dart';
 import 'package:dzidzai_mobile/components/home/full_exam.dart';
-import 'package:dzidzai_mobile/components/home/profile_avatar.dart';
 import 'package:dzidzai_mobile/components/home/skill_button.dart';
 import 'package:dzidzai_mobile/screens/lessons/grammar/grammar.dart';
 import 'package:dzidzai_mobile/screens/lessons/reading/reading.dart';
@@ -141,4 +140,6 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+
 

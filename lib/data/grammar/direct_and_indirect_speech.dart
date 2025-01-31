@@ -3,14 +3,14 @@ import 'package:dzidzai_mobile/models/grammar/grammar_exercise.dart';
 final List<GrammarExerciseModel> directIndirectSpeechQuestions = [
   GrammarExerciseModel(
     type: "rewriteSentence",
-    question: "Petrus said, ‘I feel wonderful today.’",
+    question: "Petrus said, 'I feel wonderful today.'",
     answer: "Petrus said that he felt wonderful that day.",
     instructions: "Change the sentence from direct to indirect speech.",
     feedback: "When converting direct speech to indirect speech, change the tense of the verb and adjust time expressions like 'today' to 'that day'."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
-    question: "The teacher said to the students, ‘Please bring your dictionaries to class tomorrow.’",
+    question: "The teacher said to the students, 'Please bring your dictionaries to class tomorrow.'",
     answer: "The teacher told the students to bring their dictionaries to class the next day.",
     instructions: "Change the sentence from direct to indirect speech.",
     feedback: "In indirect speech, replace requests or commands with 'told' or 'asked', and change time expressions like 'tomorrow' to 'the next day'."
@@ -102,28 +102,28 @@ final List<GrammarExerciseModel> directIndirectSpeechQuestions = [
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "Tapihwa’s uncle asked him where he had been the previous night.",
-    answer: "Tapihwa’s uncle asked, ‘Where were you last night?’",
+    answer: "Tapihwa's uncle asked, 'Where were you last night?'",
     instructions: "Change the sentence from indirect to direct speech.",
     feedback: "When converting to direct speech, 'the previous night' changes to 'last night', and 'had been' becomes 'were'."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "Josh said he was feeling happy that day.",
-    answer: "Josh said, ‘I am feeling happy today.’",
+    answer: "Josh said, 'I am feeling happy today.'",
     instructions: "Change the sentence from indirect to direct speech.",
     feedback: "In direct speech, 'that day' becomes 'today', and 'was feeling' changes to 'am feeling'."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The students said they were excited to vote in the elections the following year.",
-    answer: "The students said, ‘We are excited to vote in the elections next year.’",
+    answer: "The students said, 'We are excited to vote in the elections next year.'",
     instructions: "Change the sentence from indirect to direct speech.",
     feedback: "When converting to direct speech, 'the following year' becomes 'next year', and 'they were' changes to 'we are'."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The teacher wanted to know whether we had completed those exercises he had given us the previous day.",
-    answer: "The teacher asked, ‘Have you completed the exercises I gave you yesterday?’",
+    answer: "The teacher asked, 'Have you completed the exercises I gave you yesterday?'",
     instructions: "Change the sentence from indirect to direct speech.",
     feedback: "In direct speech, 'the previous day' becomes 'yesterday', and questions like 'wanted to know whether' become 'asked'."
   ),

@@ -10,10 +10,16 @@
 			"path": "../../playground-ai-service"
 		},
 		{
-			"path": "../../../bootcamp_projects"
+			"path": "../../../playground/playground-angular"
 		},
 		{
-			"path": "../../../playground/playground-angular"
+			"path": "../../../erp_dashboard"
+		},
+		{
+			"path": "../../../bootcamp-curriculum-site"
+		},
+		{
+			"path": "../../../playground_nest"
 		}
 	],
 	"settings": {

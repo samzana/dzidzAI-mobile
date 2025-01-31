@@ -1,4 +1,4 @@
-package com.example.dzidzai_mobile
+package com.dzidzai.english
 
 import io.flutter.embedding.android.FlutterActivity
 

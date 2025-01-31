@@ -65,7 +65,8 @@ class _GrammarExerciseState extends State<GrammarExercise> {
   void checkAnswer() async {
     setState(() {
       _isAnswered = true;
-      _isCorrect = answer == _unansweredQuestions[_currentIndex].answer;
+      _isCorrect = answer?.trim().toLowerCase() ==
+          _unansweredQuestions[_currentIndex].answer.trim().toLowerCase();
     });
 
     final databaseService =
@@ -86,7 +87,25 @@ class _GrammarExerciseState extends State<GrammarExercise> {
         _answerController.clear();
       });
     } else {
-      // Handle the end of the question list or display a completion message
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('End of Questions'),
+            content: const Text(
+                'You have reached the end of the questions. Navigate back to the previous screen to view your progress.'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+            backgroundColor: white,
+          );
+        },
+      );
     }
   }
 
@@ -307,6 +326,8 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: TextField(
                         controller: _answerController,
+                        autocorrect: false,
+                        enableSuggestions: false,
                         onChanged: (value) {
                           setState(() {
                             answer = value;
@@ -362,14 +383,14 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                               children: [
                                 RichText(
                                   text: TextSpan(
-                                    text: answer == currentQuestion.answer
+                                    text: _isCorrect
                                         ? 'Correct! The answer is: \n\n'
                                         : 'Incorrect, the correct answer is: \n\n',
                                     style: TextStyle(
                                       fontFamily: 'Baloo 2',
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w800,
-                                      color: answer == currentQuestion.answer
+                                      color: _isCorrect
                                           ? Colors.green
                                           : Colors.red,
                                     ),
@@ -378,7 +399,7 @@ class _GrammarExerciseState extends State<GrammarExercise> {
                                         text: '${currentQuestion.answer} \n\n',
                                         style: TextStyle(
                                           color:
-                                              answer == currentQuestion.answer
+                                              _isCorrect
                                                   ? Colors.orange
                                                   : Colors.blue,
                                           fontWeight: FontWeight.bold,

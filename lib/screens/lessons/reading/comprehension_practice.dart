@@ -2,6 +2,7 @@ import 'package:dzidzai_mobile/components/button.dart';
 import 'package:dzidzai_mobile/components/lessons/passage_widget.dart';
 import 'package:dzidzai_mobile/models/api/grade_reading_request.dart';
 import 'package:dzidzai_mobile/models/reading/comprehension_practice.dart';
+import 'package:dzidzai_mobile/models/reading/comprehension_question.dart';
 import 'package:dzidzai_mobile/providers/ai_api/grade_reading_provider.dart';
 import 'package:dzidzai_mobile/services/sqflite/database_service.dart';
 import 'package:dzidzai_mobile/themes/app_colors.dart';
@@ -31,6 +32,35 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
   String? answer;
   int questionNumber = 0;
   bool _isAnswered = false;
+  List<ComprehensionQuestion> _unansweredQuestions = [];
+
+  Future<void> _loadUnansweredQuestions() async {
+    final databaseService =
+        Provider.of<DatabaseService>(context, listen: false);
+    List<int> answeredIndices =
+        await databaseService.fetchAnsweredReadingQuestions(
+            widget.isVocabulary ? "Vocabulary" : "Comprehension",
+            widget.passageIndex);
+
+    setState(() {
+      if (answeredIndices.length ==
+          widget.comprehensionPractice.questions.length) {
+        _unansweredQuestions = widget.comprehensionPractice.questions;
+      } else {
+        final indexedQuestions = widget.comprehensionPractice.questions.asMap();
+
+        _unansweredQuestions = indexedQuestions.entries
+            .where((entry) => !answeredIndices.contains(entry.key))
+            .map((entry) => entry.value)
+            .toList();
+        
+        if (_unansweredQuestions.isNotEmpty) {
+          questionNumber = 0;
+        }
+      }
+
+    });
+  }
 
   void checkAnswer() {
     setState(() {
@@ -40,14 +70,14 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
       }
       final gradeReadingProvider =
           Provider.of<GradeReadingProvider>(context, listen: false);
-      final databaseService = Provider.of<DatabaseService>(context, listen: false);
+      final databaseService =
+          Provider.of<DatabaseService>(context, listen: false);
 
       final request = GradeReadingRequest(
         passage: widget.comprehensionPractice.passage,
-        question:
-            !widget.isVocabulary 
-            ? widget.comprehensionPractice.questions[questionNumber].question 
-            : 'Give one word or a short phrase (of not more than seven words) which has the same meaning that the following word or phrase has in the passage: ${widget.comprehensionPractice.questions[questionNumber].question }',
+        question: !widget.isVocabulary
+            ? widget.comprehensionPractice.questions[questionNumber].question
+            : 'Give one word or a short phrase (of not more than seven words) which has the same meaning that the following word or phrase has in the passage: ${widget.comprehensionPractice.questions[questionNumber].question}',
         response: answer!,
       );
 
@@ -57,28 +87,29 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
         });
 
         // Save the answer to the database
-    
+
         databaseService.trackComprehensionAnswer(
           widget.isVocabulary ? 'Vocabulary' : 'Comprehension',
           widget.passageIndex,
           questionNumber,
           gradeReadingProvider.response!.grade.startsWith("Correct"),
         );
-        
       }).catchError((error) {
         setState(() {
           _isAnswered = false;
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to connect to the server. Please make sure you have internet connection and try again.')),
+          const SnackBar(
+              content: Text(
+                  'Failed to connect to the server. Please make sure you have internet connection and try again.')),
         );
       });
     });
   }
 
   void nextQuestion() {
-    if (questionNumber < widget.comprehensionPractice.questions.length - 1) {
+    if (questionNumber < _unansweredQuestions.length - 1) {
       setState(() {
         _isAnswered = false;
         questionNumber++;
@@ -86,7 +117,25 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
         _answerController.clear();
       });
     } else {
-      // You can show a message or handle the end of the question list here
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('End of Questions'),
+            content: const Text(
+                'You have reached the end of the questions. Navigate back to the previous screen to view your progress.'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+              ),
+            ],
+            backgroundColor: white,
+          );
+        },
+      );
     }
   }
 
@@ -95,6 +144,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
     super.initState();
     _scrollController = ScrollController();
     _answerController = TextEditingController();
+    _loadUnansweredQuestions();
   }
 
   @override
@@ -112,7 +162,9 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
         appBar: AppBar(
           backgroundColor: white,
           title: Text(
-            widget.isVocabulary? 'Vocabulary Practice' : 'Comprehension Practice',
+            widget.isVocabulary
+                ? 'Vocabulary Practice'
+                : 'Comprehension Practice',
             style: const TextStyle(
               fontFamily: 'Baloo 2',
               fontSize: 25,
@@ -153,16 +205,19 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     ),
                     SizedBox(height: 40.h),
                     Text(
-                      'From paragraph ${widget.comprehensionPractice.questions[questionNumber].paragraphNumber}:',
+                      'From paragraph ${_unansweredQuestions[questionNumber].paragraphNumber}:',
                       style: TextStyle(
                           fontSize: 18.sp,
                           fontFamily: 'Baloo 2',
                           fontWeight: FontWeight.w800),
                     ),
                     Text(
-                      widget.comprehensionPractice.questions[questionNumber]
+                      _unansweredQuestions[questionNumber]
                           .question,
-                      style: TextStyle(fontSize: 18.sp, fontFamily: 'Baloo 2',),
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontFamily: 'Baloo 2',
+                      ),
                     ),
                     SizedBox(height: 20.h),
                     Padding(
@@ -203,7 +258,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                     if (!_isAnswered)
                       !gradeReadingProvider.isLoading
                           ? Center(
-                            child: AppButton(
+                              child: AppButton(
                                 text: 'Submit Answer',
                                 color: black,
                                 width: 400.w,
@@ -211,7 +266,7 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                                   checkAnswer();
                                 },
                               ),
-                          )
+                            )
                           : const Center(
                               child: CircularProgressIndicator(
                                 color: blue,
@@ -223,7 +278,8 @@ class _ComprehensionPracticeState extends State<ComprehensionPractice> {
                         child: Text(
                           gradeReadingProvider.response?.grade ?? '',
                           style: TextStyle(
-                            color: (gradeReadingProvider.response?.grade ?? '').startsWith("Correct")
+                            color: (gradeReadingProvider.response?.grade ?? '')
+                                    .startsWith("Correct")
                                 ? green
                                 : red,
                             fontFamily: 'Baloo 2',

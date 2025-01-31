@@ -4,70 +4,70 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The manager’s (insist) on formal dress led to a loss of customers.",
-    answer: "The manager’s insistence on formal dress led to a loss of customers.",
+    answer: "Insistence",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The noun form 'insistence' is used to indicate the manager's firm demand."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "She was so (anxiety) to show her results.",
-    answer: "She was so anxious to show her results.",
+    answer: "Anxious",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The adjective form 'anxious' describes her state of worry."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "Mary was (habit) late for athletics.",
-    answer: "Mary was habitually late for athletics.",
+    answer: "Habitually",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The adverb form 'habitually' describes the frequency of Mary's lateness."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "Jabu was (sad) by the news of his friend’s death.",
-    answer: "Jabu was saddened by the news of his friend’s death.",
+    answer: "Saddened",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The past participle form 'saddened' describes Jabu’s emotional response."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "His (refuse) to pay the fine led to his prosecution.",
-    answer: "His refusal to pay the fine led to his prosecution.",
+    answer: "Refusal",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The noun form 'refusal' is used to describe his act of not paying the fine."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "Many people are now (conscience) of the need to remain sexually faithful.",
-    answer: "Many people are now conscious of the need to remain sexually faithful.",
+    answer: "Conscious",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The adjective form 'conscious' describes awareness."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The (spontaneity) nature of the strikes worried the manager.",
-    answer: "The spontaneous nature of the strikes worried the manager.",
+    answer: "Spontaneous",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The adjective form 'spontaneous' describes the unplanned nature of the strikes."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The teacher (priority) the exercises in order of importance.",
-    answer: "The teacher prioritized the exercises in order of importance.",
+    answer: "Prioritized",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The verb form 'prioritized' indicates the action of arranging by importance."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The (boring) clearly showed on the children’s faces.",
-    answer: "The boredom clearly showed on the children’s faces.",
+    answer: "Boredom",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The noun form 'boredom' describes the state of being bored."
   ),
   GrammarExerciseModel(
     type: "rewriteSentence",
     question: "The ambassador gave some (naivety) answers at the press briefing.",
-    answer: "The ambassador gave some naive answers at the press briefing.",
+    answer: "Naive",
     instructions: "Write down the correct form of the word in brackets in each sentence.",
     feedback: "The adjective form 'naive' describes the nature of the answers given."
   ),
@@ -115,7 +115,7 @@ final List<GrammarExerciseModel> wordFormationQuestions = [
     type: "mcq",
     question: "Choose the correct spelling of the word: Belive / believe",
     options: ["Belive", "Believe"],
-    answer: "believe",
+    answer: "Believe",
     instructions: "Choose the correct spelling of the word from the options.",
     feedback: "The correct spelling is 'believe'."
   ),
